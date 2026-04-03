@@ -779,6 +779,64 @@ document.addEventListener('DOMContentLoaded', () => {
       .prrip-stat-sub, .prrip-note, .protected-flow-row span { font-size:.96rem; }
     }
 
+
+
+    
+    .flow-story-wrap { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(320px,.8fr); gap:1.2rem; align-items:stretch; }
+    .flow-story-panel { position:relative; overflow:hidden; border:1px solid rgba(255,255,255,.08); border-radius:1.35rem; background:
+      radial-gradient(circle at 18% 22%, rgba(103,215,255,.08), transparent 20%),
+      radial-gradient(circle at 28% 72%, rgba(197,140,255,.08), transparent 18%),
+      radial-gradient(circle at 72% 42%, rgba(105,240,200,.08), transparent 18%),
+      linear-gradient(180deg, rgba(8,18,40,.96), rgba(4,10,24,.96)); min-height:680px; }
+    .flow-story-stage { position:relative; height:100%; min-height:680px; padding:1rem; }
+    .flow-story-svg { width:100%; height:100%; display:block; }
+    .flow-controls { display:flex; gap:.65rem; flex-wrap:wrap; margin-bottom:1rem; }
+    .flow-tab { border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03); color:#eaf3ff; border-radius:999px; padding:.72rem 1rem; font-weight:700; font-size:.92rem; transition:.25s ease; }
+    .flow-tab:hover, .flow-tab.active { background:linear-gradient(180deg, rgba(57,198,255,.18), rgba(95,143,255,.14)); border-color:rgba(95,143,255,.45); box-shadow:0 10px 22px rgba(0,0,0,.22); }
+    .flow-side { border:1px solid rgba(255,255,255,.08); border-radius:1.35rem; background:linear-gradient(180deg, rgba(8,18,40,.92), rgba(4,10,24,.96)); padding:1.25rem; min-height:680px; }
+    .flow-kicker { display:inline-flex; align-items:center; gap:.45rem; margin-bottom:.85rem; padding:.42rem .82rem; border-radius:999px; border:1px solid rgba(57,198,255,.16); background:rgba(57,198,255,.08); color:#d6f3ff; font-size:.77rem; letter-spacing:.06em; text-transform:uppercase; }
+    .flow-side h3 { font-size:clamp(1.28rem, 1.9vw, 1.75rem); line-height:1.18; margin-bottom:.9rem; color:#f7fbff; font-weight:800; }
+    .flow-side p { color:#e1ebff; line-height:1.7; font-size:1rem; margin-bottom:1rem; }
+    .flow-legend { display:grid; gap:.7rem; margin:1rem 0 1.15rem; }
+    .flow-legend-item { display:flex; align-items:center; gap:.7rem; padding:.72rem .85rem; border-radius:1rem; border:1px solid rgba(255,255,255,.07); background:rgba(255,255,255,.03); color:#eef5ff; }
+    .flow-swatch { width:34px; height:7px; border-radius:999px; display:inline-block; }
+    .flow-chip-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:.85rem; }
+    .flow-chip { border:1px solid rgba(255,255,255,.08); border-radius:1rem; padding:.9rem 1rem; background:rgba(255,255,255,.03); }
+    .flow-chip .label { min-height:auto; margin-bottom:.35rem; color:#a9c0e3; }
+    .flow-chip .value { font-size:1rem; line-height:1.3; color:#f6fbff; font-weight:700; }
+    .flow-caption { margin-top:1rem; color:#c0d4f3; font-size:.9rem; line-height:1.6; }
+    .flow-gridline { stroke:rgba(255,255,255,.06); stroke-width:1; }
+    .flow-river-label { fill:#c9dbff; font-weight:800; font-size:15px; letter-spacing:.08em; text-transform:uppercase; }
+    .flow-branch { fill:none; stroke-linecap:round; stroke-linejoin:round; opacity:.15; transition:opacity .35s ease, filter .35s ease, stroke-width .35s ease; }
+    .flow-branch.north { stroke:#55d6ff; }
+    .flow-branch.south { stroke:#b57cff; }
+    .flow-branch.mainstem { stroke:#54efbf; }
+    .flow-branch.active { opacity:1; stroke-width:18; }
+    #southPath.active { stroke-width:14; }
+    #plattePath.active { stroke-width:18; }
+    .flow-connector { stroke:rgba(255,255,255,.18); stroke-width:2.5; fill:none; opacity:.55; }
+    .flow-particle { opacity:0; filter:drop-shadow(0 0 10px rgba(255,255,255,.55)); }
+    .flow-particle.active { opacity:1; }
+    .flow-dot { stroke:#fff; stroke-opacity:.45; stroke-width:1.5; }
+    .flow-dot.north { fill:#55d6ff; }
+    .flow-dot.south { fill:#b57cff; }
+    .flow-dot.mainstem { fill:#54efbf; }
+    .flow-label { fill:#f8fbff; font-weight:800; font-size:13px; letter-spacing:.01em; }
+    .flow-label-bg { fill:rgba(8,16,34,.92); stroke:rgba(255,255,255,.1); stroke-width:1; }
+    .flow-reservoir { opacity:.4; transition:opacity .35s ease, transform .35s ease, filter .35s ease; }
+    .flow-reservoir.active { opacity:.82; }
+    .flow-reservoir.glow { opacity:1; filter:drop-shadow(0 0 18px rgba(255,255,255,.18)); }
+    .flow-reservoir.glow .flow-label-bg { fill:rgba(14,34,68,.96); stroke:rgba(255,255,255,.22); }
+    .flow-reservoir.glow.north .flow-label-bg { stroke:rgba(85,214,255,.58); box-shadow:0 0 0 1px rgba(85,214,255,.25) inset; }
+    .flow-reservoir.glow.south .flow-label-bg { stroke:rgba(181,124,255,.58); }
+    .flow-reservoir.glow.mainstem .flow-label-bg { stroke:rgba(84,239,191,.58); }
+    .flow-reservoir.glow .flow-label { fill:#ffffff; }
+    .flow-reservoir.glow circle { filter:drop-shadow(0 0 10px currentColor); transform:scale(1.05); transform-origin:center; }
+    .flow-node-note { fill:#c8daff; font-size:11.5px; }
+    @media (max-width: 1199px) { .flow-story-wrap { grid-template-columns:1fr; } .flow-side, .flow-story-panel, .flow-story-stage { min-height:auto; } .flow-story-panel, .flow-side { min-height:unset; } }
+    @media (max-width: 767px) { .flow-chip-grid { grid-template-columns:1fr; } .flow-controls { gap:.5rem; } .flow-tab { width:100%; text-align:left; } .flow-story-stage { padding:.35rem; } }
+
+
   </style>
 </head>
 <body>
@@ -902,6 +960,135 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="snow-note"><i class="bi bi-info-circle"></i><span>The visible crop is widened so viewers can see the live callouts with the chart, not just the curve.</span></div>
         </div>
       </article>
+    </div>
+  </section>
+
+
+  
+  <section class="glass p-3 p-lg-4 mb-4" id="platteFlowStorySection">
+    <div class="section-title mb-3">
+      <i class="bi bi-bezier2 fs-2 accent-blue"></i>
+      <div>
+        <h2 class="h4 mb-0">Platte Basin flow animation</h2>
+        <div class="tiny">North Platte and South Platte flow paths route to the confluence at North Platte. Downstream of that point, the corridor is treated as the Platte River.</div>
+      </div>
+    </div>
+
+    <div class="flow-controls" id="flowStoryTabs">
+      <button class="flow-tab active" type="button" data-step="north">1. North Platte headwaters</button>
+      <button class="flow-tab" type="button" data-step="south">2. South Platte headwaters</button>
+      <button class="flow-tab" type="button" data-step="confluence">3. Confluence at North Platte</button>
+      <button class="flow-tab" type="button" data-step="platte">4. Platte River downstream</button>
+      <button class="flow-tab" type="button" data-step="play">Play all</button>
+    </div>
+
+    <div class="flow-story-wrap">
+      <div class="flow-story-panel">
+        <div class="flow-story-stage">
+          <svg class="flow-story-svg" viewBox="0 0 1100 680" role="img" aria-label="Animated Platte Basin flow schematic">
+            <g aria-hidden="true">
+              <line class="flow-gridline" x1="170" y1="56" x2="170" y2="624"></line>
+              <line class="flow-gridline" x1="390" y1="56" x2="390" y2="624"></line>
+              <line class="flow-gridline" x1="610" y1="56" x2="610" y2="624"></line>
+              <line class="flow-gridline" x1="830" y1="56" x2="830" y2="624"></line>
+              <line class="flow-gridline" x1="1050" y1="56" x2="1050" y2="624"></line>
+              <line class="flow-gridline" x1="50" y1="150" x2="1070" y2="150"></line>
+              <line class="flow-gridline" x1="50" y1="340" x2="1070" y2="340"></line>
+              <line class="flow-gridline" x1="50" y1="530" x2="1070" y2="530"></line>
+            </g>
+
+            <text class="flow-river-label" x="92" y="86">North Platte River</text>
+            <text class="flow-river-label" x="96" y="500">South Platte River</text>
+            <text class="flow-river-label" x="740" y="286">Platte River</text>
+
+            <path id="northPath" class="flow-branch north active" d="M72,142 C142,116 204,114 256,136 C312,160 350,210 404,248 C462,289 535,318 608,331"></path>
+            <path id="southPath" class="flow-branch south" d="M106,492 C215,439 316,392 418,366 C494,347 552,337 608,331"></path>
+            <path id="plattePath" class="flow-branch mainstem" d="M608,331 C694,340 776,357 861,395 C929,426 987,450 1048,471"></path>
+
+            <g id="northReservoirs">
+              <path class="flow-connector" d="M148,142 L148,106"></path>
+              <g class="flow-reservoir north active" id="res-seminoe" transform="translate(86,64)">
+                <rect class="flow-label-bg" rx="16" ry="16" width="134" height="48"></rect><circle class="flow-dot north" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Seminoe Reservoir</text>
+              </g>
+
+              <path class="flow-connector" d="M230,136 L246,96"></path>
+              <g class="flow-reservoir north active" id="res-kortes" transform="translate(188,54)">
+                <rect class="flow-label-bg" rx="16" ry="16" width="126" height="48"></rect><circle class="flow-dot north" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Kortes Reservoir</text>
+              </g>
+
+              <path class="flow-connector" d="M337,194 L362,150"></path>
+              <g class="flow-reservoir north active" id="res-pathfinder" transform="translate(290,108)">
+                <rect class="flow-label-bg" rx="16" ry="16" width="148" height="48"></rect><circle class="flow-dot north" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Pathfinder Reservoir</text>
+              </g>
+
+              <path class="flow-connector" d="M430,267 L470,227"></path>
+              <g class="flow-reservoir north active" id="res-alcova" transform="translate(416,185)">
+                <rect class="flow-label-bg" rx="16" ry="16" width="126" height="48"></rect><circle class="flow-dot north" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Alcova Reservoir</text>
+              </g>
+
+              <path class="flow-connector" d="M470,287 L540,248"></path>
+              <g class="flow-reservoir north active" id="res-grayreef" transform="translate(524,206)">
+                <rect class="flow-label-bg" rx="16" ry="16" width="148" height="48"></rect><circle class="flow-dot north" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Gray Reef Reservoir</text>
+              </g>
+
+              <path class="flow-connector" d="M520,308 L612,272"></path>
+              <g class="flow-reservoir north active" id="res-glendo" transform="translate(596,230)">
+                <rect class="flow-label-bg" rx="16" ry="16" width="132" height="48"></rect><circle class="flow-dot north" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Glendo Reservoir</text>
+              </g>
+
+              <path class="flow-connector" d="M568,321 L736,288"></path>
+              <g class="flow-reservoir north active" id="res-guernsey" transform="translate(720,246)">
+                <rect class="flow-label-bg" rx="16" ry="16" width="152" height="48"></rect><circle class="flow-dot north" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Guernsey Reservoir</text>
+              </g>
+
+              <path class="flow-connector" d="M606,331 L884,324"></path>
+              <g class="flow-reservoir north active" id="res-mcconaughy" transform="translate(868,282)">
+                <rect class="flow-label-bg" rx="16" ry="16" width="170" height="48"></rect><circle class="flow-dot north" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Lake McConaughy</text>
+              </g>
+            </g>
+
+            <g id="southNodes">
+              <g class="flow-reservoir south" id="node-south-head" transform="translate(160,514)">
+                <rect class="flow-label-bg" rx="16" ry="16" width="164" height="48"></rect><circle class="flow-dot south" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">South Platte River</text>
+              </g>
+            </g>
+
+            <g id="platteNodes">
+              <g class="flow-reservoir mainstem" id="node-confluence" transform="translate(546,346)">
+                <rect class="flow-label-bg" rx="16" ry="16" width="180" height="48"></rect><circle class="flow-dot mainstem" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Confluence at North Platte</text>
+              </g>
+              <g class="flow-reservoir mainstem" id="node-platte" transform="translate(760,392)">
+                <rect class="flow-label-bg" rx="16" ry="16" width="126" height="48"></rect><circle class="flow-dot mainstem" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Platte River</text>
+              </g>
+              <g class="flow-reservoir mainstem" id="node-grandisland" transform="translate(922,462)">
+                <rect class="flow-label-bg" rx="16" ry="16" width="132" height="48"></rect><circle class="flow-dot mainstem" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Grand Island</text>
+              </g>
+            </g>
+
+            <circle id="particleNorth" class="flow-particle" r="8" fill="#d7fbff"></circle>
+            <circle id="particleSouth" class="flow-particle" r="8" fill="#f0ddff"></circle>
+            <circle id="particlePlatte" class="flow-particle" r="8" fill="#dbfff2"></circle>
+          </svg>
+        </div>
+      </div>
+
+      <aside class="flow-side">
+        <div class="flow-kicker"><i class="bi bi-droplet-half"></i><span id="flowStoryKicker">North Platte headwaters</span></div>
+        <h3 id="flowStoryTitle">North Platte flow is routed through a reservoir ladder before it reaches the confluence.</h3>
+        <p id="flowStoryBody">This step stays on the North Platte River only. As water moves downstream, each reservoir label lights up in sequence so viewers can see the routing chain before the branch reaches North Platte and becomes part of the Platte River.</p>
+        <div class="flow-legend">
+          <div class="flow-legend-item"><span class="flow-swatch" style="background:#55d6ff"></span><span>North Platte River</span></div>
+          <div class="flow-legend-item"><span class="flow-swatch" style="background:#b57cff"></span><span>South Platte River</span></div>
+          <div class="flow-legend-item"><span class="flow-swatch" style="background:#54efbf"></span><span>Platte River</span></div>
+        </div>
+        <div class="flow-chip-grid">
+          <div class="flow-chip"><div class="label">Focus</div><div class="value" id="flowChip1">North Platte routing</div></div>
+          <div class="flow-chip"><div class="label">Branch</div><div class="value" id="flowChip2">North Platte River</div></div>
+          <div class="flow-chip"><div class="label">Transition point</div><div class="value" id="flowChip3">Confluence at North Platte</div></div>
+          <div class="flow-chip"><div class="label">What to notice</div><div class="value" id="flowChip4">Reservoir nodes brighten as the flow front moves downstream.</div></div>
+        </div>
+        <div class="flow-caption">The schematic is intentionally simplified, but the reservoirs are now shown as labeled control points tied to the North Platte route with connector stems rather than being drawn directly on top of the same line segment. That makes the downstream progression easier to read while keeping the confluence and Platte mainstem separate.</div>
+      </aside>
     </div>
   </section>
 
@@ -4333,5 +4520,221 @@ initGrandIslandFdcLive();
 setupDroughtTabs();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+(function(){
+  const config = {
+    north: {
+      kicker: 'North Platte headwaters',
+      title: 'North Platte flow is routed through a reservoir ladder before it reaches the confluence.',
+      body: 'This step follows only the North Platte River. The animated flow front moves downstream from the Wyoming headwaters through the North Platte control chain, and each reservoir label lights up as water reaches that point.',
+      chips: ['Seminoe to Lake McConaughy','North Platte River','Confluence at North Platte','Reservoir labels illuminate in downstream order.'],
+      activeBranches: ['northPath'],
+      activeReservoirs: ['res-seminoe','res-kortes','res-pathfinder','res-alcova','res-grayreef','res-glendo','res-guernsey','res-mcconaughy'],
+      particle: ['particleNorth','northPath',8200],
+      highlights: [
+        [0.08,'res-seminoe'],
+        [0.16,'res-kortes'],
+        [0.31,'res-pathfinder'],
+        [0.48,'res-alcova'],
+        [0.56,'res-grayreef'],
+        [0.70,'res-glendo'],
+        [0.82,'res-guernsey'],
+        [0.96,'res-mcconaughy']
+      ]
+    },
+    south: {
+      kicker: 'South Platte headwaters',
+      title: 'The South Platte branch is shown separately until it reaches North Platte.',
+      body: 'This step isolates the South Platte River. Water is carried east from the Colorado headwaters to the confluence, where it joins the North Platte and begins the Platte River downstream.',
+      chips: ['Colorado headwaters to North Platte','South Platte River','Confluence at North Platte','Branch stays separate until the merge.'],
+      activeBranches: ['southPath'],
+      activeReservoirs: ['node-south-head','node-confluence'],
+      particle: ['particleSouth','southPath',5600],
+      highlights: [
+        [0.12,'node-south-head'],
+        [0.95,'node-confluence']
+      ]
+    },
+    confluence: {
+      kicker: 'Confluence at North Platte',
+      title: 'The Platte River begins at the confluence of the North Platte and South Platte.',
+      body: 'This frame shows the handoff. The two upstream branches arrive separately at North Platte, then the downstream corridor is treated as the Platte River from that point eastward.',
+      chips: ['North Platte + South Platte','Confluence at North Platte','Platte River begins here','Upstream branches merge into one mainstem.'],
+      activeBranches: ['northPath','southPath'],
+      activeReservoirs: ['res-mcconaughy','node-south-head','node-confluence'],
+      particles: [['particleNorth','northPath',8200],['particleSouth','southPath',5600]],
+      highlights: [[0,'res-mcconaughy'],[0,'node-south-head'],[0.9,'node-confluence']]
+    },
+    platte: {
+      kicker: 'Platte River downstream',
+      title: 'Below North Platte, the downstream corridor is treated as the Platte River.',
+      body: 'After the confluence, the animation leaves the North Platte and South Platte branches behind and follows the Platte River corridor alone downstream toward Grand Island.',
+      chips: ['North Platte to Grand Island','Platte River','Grand Island reach','Mainstem routing continues eastward.'],
+      activeBranches: ['plattePath'],
+      activeReservoirs: ['node-confluence','node-platte','node-grandisland'],
+      particle: ['particlePlatte','plattePath',6200],
+      highlights: [
+        [0.06,'node-confluence'],
+        [0.42,'node-platte'],
+        [0.95,'node-grandisland']
+      ]
+    }
+  };
+
+  const state = { step:'north', raf:null, start:0, duration:6000, path:null, particle:null, highlights:[], playTimer:null };
+
+  function pointAt(path, t){
+    const len = path.getTotalLength();
+    return path.getPointAtLength(Math.max(0, Math.min(1, t)) * len);
+  }
+
+  function clearGlow(){
+    document.querySelectorAll('.flow-reservoir').forEach(el=>el.classList.remove('glow'));
+  }
+
+  function resetParticles(){
+    document.querySelectorAll('.flow-particle').forEach(el=>{
+      el.classList.remove('active');
+      el.removeAttribute('cx');
+      el.removeAttribute('cy');
+    });
+  }
+
+  function stopMotion(){
+    if(state.raf) cancelAnimationFrame(state.raf);
+    state.raf = null;
+    if(state.playTimer){
+      clearTimeout(state.playTimer);
+      state.playTimer = null;
+    }
+    resetParticles();
+    clearGlow();
+  }
+
+  function runSingleParticle(particleId, pathId, duration, highlights){
+    const particle = document.getElementById(particleId);
+    const path = document.getElementById(pathId);
+    if(!particle || !path) return;
+    particle.classList.add('active');
+    state.start = performance.now();
+    state.duration = duration;
+    state.path = path;
+    state.particle = particle;
+    state.highlights = highlights || [];
+    function frame(now){
+      const progress = Math.min(1, (now - state.start) / state.duration);
+      const p = pointAt(path, progress);
+      particle.setAttribute('cx', p.x);
+      particle.setAttribute('cy', p.y);
+      clearGlow();
+      state.highlights.forEach(([threshold, id])=>{
+        const el = document.getElementById(id);
+        if(el && progress >= threshold) el.classList.add('glow');
+      });
+      if(progress < 1){
+        state.raf = requestAnimationFrame(frame);
+      } else {
+        state.raf = null;
+      }
+    }
+    state.raf = requestAnimationFrame(frame);
+  }
+
+  function runMultiParticles(particles, highlights){
+    const starts = performance.now();
+    particles.forEach(([pid])=>document.getElementById(pid)?.classList.add('active'));
+    function frame(now){
+      const elapsed = now - starts;
+      clearGlow();
+      (highlights || []).forEach(([threshold, id])=>{
+        const el = document.getElementById(id);
+        if(el && (elapsed / 7000) >= threshold) el.classList.add('glow');
+      });
+      let activeAny = false;
+      particles.forEach(([pid, pathId, duration])=>{
+        const particle = document.getElementById(pid);
+        const path = document.getElementById(pathId);
+        if(!particle || !path) return;
+        const progress = Math.min(1, elapsed / duration);
+        const p = pointAt(path, progress);
+        particle.setAttribute('cx', p.x);
+        particle.setAttribute('cy', p.y);
+        if(progress < 1) activeAny = true;
+      });
+      if(activeAny){
+        state.raf = requestAnimationFrame(frame);
+      } else {
+        state.raf = null;
+      }
+    }
+    state.raf = requestAnimationFrame(frame);
+  }
+
+  function activateStep(step, fromPlay=false){
+    const conf = config[step];
+    if(!conf) return;
+    state.step = step;
+    if(!fromPlay && state.playTimer){
+      clearTimeout(state.playTimer);
+      state.playTimer = null;
+    }
+    if(!fromPlay){
+      document.querySelectorAll('#flowStoryTabs .flow-tab').forEach(btn=>btn.classList.toggle('active', btn.dataset.step === step));
+    }
+    document.querySelectorAll('.flow-branch').forEach(el=>el.classList.remove('active'));
+    conf.activeBranches.forEach(id=>document.getElementById(id)?.classList.add('active'));
+    document.querySelectorAll('.flow-reservoir').forEach(el=>el.classList.remove('active'));
+    conf.activeReservoirs.forEach(id=>document.getElementById(id)?.classList.add('active'));
+    document.getElementById('flowStoryKicker').textContent = conf.kicker;
+    document.getElementById('flowStoryTitle').textContent = conf.title;
+    document.getElementById('flowStoryBody').textContent = conf.body;
+    ['flowChip1','flowChip2','flowChip3','flowChip4'].forEach((id,i)=>document.getElementById(id).textContent = conf.chips[i]);
+    stopMotion();
+    if(conf.particle){
+      runSingleParticle(conf.particle[0], conf.particle[1], conf.particle[2], conf.highlights);
+    } else if(conf.particles){
+      runMultiParticles(conf.particles, conf.highlights);
+    }
+  }
+
+  function playAll(){
+    const order = ['north','south','confluence','platte'];
+    let idx = 0;
+    document.querySelectorAll('#flowStoryTabs .flow-tab').forEach(btn=>btn.classList.toggle('active', btn.dataset.step === 'play'));
+    function next(){
+      const step = order[idx];
+      activateStep(step, true);
+      idx += 1;
+      if(idx < order.length){
+        state.playTimer = setTimeout(next, 3400);
+      } else {
+        state.playTimer = null;
+      }
+    }
+    next();
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const tabs = document.getElementById('flowStoryTabs');
+    if(!tabs) return;
+    tabs.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.flow-tab');
+      if(!btn) return;
+      const step = btn.dataset.step;
+      if(step === 'play'){
+        stopMotion();
+        playAll();
+        return;
+      }
+      activateStep(step);
+    });
+    activateStep('north');
+  });
+})();
+</script>
+
+
 </body>
 </html>
