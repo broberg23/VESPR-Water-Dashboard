@@ -624,6 +624,19 @@ document.addEventListener('DOMContentLoaded', () => {
     .fdc-action-row { display:flex; gap:.7rem; flex-wrap:wrap; margin-top:.8rem; }
     .fdc-status { color:#cfe1ff; font-size:.86rem; }
     .fdc-table-panel.fdc-summary-table-panel { margin-top:-.15rem; }
+    .bulletin-year-panel { border:1px solid rgba(255,255,255,.09); background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02)); box-shadow:0 16px 34px rgba(0,0,0,.18); }
+    .prrip-bottom-grid { display:grid; grid-template-columns:minmax(0, 1.15fr) minmax(0, .95fr); gap:1.1rem; align-items:stretch; }
+    .prrip-schedule-card, .prrip-status-card { border:1px solid rgba(255,255,255,.08); background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.018)); box-shadow:0 18px 36px rgba(0,0,0,.2); }
+    .prrip-status-head { margin-bottom:1rem; padding-bottom:.75rem; border-bottom:1px solid rgba(255,255,255,.08); }
+    .prrip-status-hero { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:.9rem; margin-bottom:.9rem; }
+    .prrip-stat-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:.9rem; }
+    .prrip-inline-status-card { grid-column:1 / -1; }
+    .prrip-inline-check-label { display:flex; flex-wrap:wrap; gap:.35rem; align-items:center; }
+    .prrip-inline-check-label small { color:#cfe1ff; font-weight:600; opacity:.95; }
+    .prrip-note { margin-top:1rem; }
+    @media (max-width: 991.98px) {
+      .prrip-bottom-grid, .prrip-status-hero, .prrip-stat-grid { grid-template-columns:1fr; }
+    }
     @media (max-width: 991.98px) {
       .fdc-controls { grid-template-columns:1fr; }
       .fdc-range-grid { grid-template-columns:1fr; }
@@ -1569,8 +1582,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="fdc-selected-title">Bulletin 17C selected years</div>
                 <div class="fdc-selected-sub" id="giBulletinSelectionSummaryText">--</div>
               </div>
+              <button class="fdc-btn" type="button" id="giBulletinCustomToggle" aria-expanded="false"><i class="bi bi-sliders2"></i>Custom years <i class="bi bi-chevron-down"></i></button>
             </div>
             <div class="fdc-chip-row" id="giBulletinSelectionChips"></div>
+            <div class="fdc-custom-wrap collapse" id="giBulletinCustomWrap">
+              <div class="tiny mt-3 mb-1">Optional manual adjustments</div>
+              <div class="fdc-year-list" id="giBulletinYearList"></div>
+            </div>
           </div>
         </div>
         <div class="fdc-summary-card mb-3">
@@ -1670,14 +1688,14 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="prrip-stat-sub">Displayed schedule responds to the active March-April PRRIP classification.</div>
           </div>
           <div class="prrip-stat prrip-inline-status-card">
-            <div class="prrip-stat-label"><span class="prrip-label-teal">Instream stream flow met?</span></div>
+            <div class="prrip-stat-label"><span class="prrip-label-teal">Instream Flow Met?</span></div>
             <div class="prrip-inline-checks">
               <div class="prrip-inline-check-row">
-                <span class="prrip-inline-check-label prrip-label-orange">Central Platte</span>
+                <span class="prrip-inline-check-label prrip-label-orange" id="prripCentralPlatteLabel">Central Platte</span>
                 <strong class="prrip-check-value status-unknown" id="prripCentralPlatteMet">Unknown</strong>
               </div>
               <div class="prrip-inline-check-row">
-                <span class="prrip-inline-check-label prrip-label-cyan">Nebraska Game and Parks</span>
+                <span class="prrip-inline-check-label prrip-label-cyan" id="prripNgpcLabel">Nebraska Game and Parks</span>
                 <strong class="prrip-check-value status-unknown" id="prripNgpcMet">Unknown</strong>
               </div>
             </div>
@@ -3146,6 +3164,10 @@ async function renderPrripHydrology(grandIslandFlow=null, grandIslandUpdatedAt=n
 
   const cpnrd = protectedFlowBenchmarks.cpnrd.value;
   const ngpc = protectedFlowBenchmarks.ngpc.value;
+  const centralLabelEl = document.getElementById('prripCentralPlatteLabel');
+  if (centralLabelEl) centralLabelEl.innerHTML = `Central Platte <small>${fmt(cpnrd,0)} cfs appropriation</small>`;
+  const ngpcLabelEl = document.getElementById('prripNgpcLabel');
+  if (ngpcLabelEl) ngpcLabelEl.innerHTML = `Nebraska Game and Parks <small>${fmt(ngpc,0)} cfs appropriation</small>`;
   const cpnrdMet = Number.isFinite(grand) ? grand >= cpnrd : null;
   const ngpcMet = Number.isFinite(grand) ? grand >= ngpc : null;
 
@@ -3206,26 +3228,6 @@ async function renderPrripHydrology(grandIslandFlow=null, grandIslandUpdatedAt=n
     order: 3
   }];
 
-  ['Dry','Normal','Wet'].forEach(cond => {
-    if (cond === currentLabel) return;
-    datasets.push({
-      type: 'line',
-      label: `${cond} alternate`,
-      data: labels.map(label => {
-        const match = schedulesByCondition[cond].find(s => s.label === label);
-        return match ? match.value : null;
-      }),
-      borderColor: scheduleColors[cond],
-      backgroundColor: scheduleColors[cond],
-      borderWidth: 3,
-      borderDash: cond === 'Normal' ? [4, 4] : [10, 6],
-      tension: 0,
-      pointRadius: 3.5,
-      pointHoverRadius: 4.5,
-      fill: false,
-      order: 2
-    });
-  });
 
   datasets.push({
     type: 'line',
@@ -3263,18 +3265,16 @@ async function renderPrripHydrology(grandIslandFlow=null, grandIslandUpdatedAt=n
 
   const legendEl = document.getElementById('prripScheduleLegend');
   if (legendEl) {
-    const legendParts = [`<span class="prrip-legend-pill"><span class="prrip-legend-dot" style="background:${currentBase}"></span>${currentLabel} active bars</span>`];
-    ['Dry','Normal','Wet'].forEach(cond => {
-      if (cond === currentLabel) return;
-      legendParts.push(`<span class="prrip-legend-pill"><span class="prrip-legend-dot" style="background:${scheduleColors[cond]}"></span>${cond} alternate</span>`);
-    });
-    legendParts.push(`<span class="prrip-legend-pill"><span class="prrip-legend-dot" style="background:#ff6b6b"></span>Today at Grand Island</span>`);
+    const legendParts = [
+      `<span class="prrip-legend-pill"><span class="prrip-legend-dot" style="background:${currentBase}"></span>${currentLabel} active bars</span>`,
+      `<span class="prrip-legend-pill"><span class="prrip-legend-dot" style="background:#ff6b6b"></span>Today at Grand Island</span>`
+    ];
     legendEl.innerHTML = legendParts.join('');
   }
 
   setText(
     'prripTargetScheduleNote',
-    `Current condition: ${currentLabel}. The solid bars are the active ${currentLabel.toLowerCase()} schedule, with lighter bars showing future blocks and darker bars showing earlier blocks. Dashed lines trace the alternate condition paths so viewers can tell whether prior or competing schedules are Dry, Normal, or Wet.`
+    `Current condition: ${currentLabel}. The solid bars are the active ${currentLabel.toLowerCase()} schedule, with lighter bars showing future blocks and darker bars showing earlier blocks. The chart now emphasizes the active schedule only so today's target is easier to read at a glance.`
   );
 }
 
@@ -4592,6 +4592,8 @@ async function renderGrandIslandFdcLive() {
   }
 }
 function giBulletinSelectedYears() {
+  const checked = [...document.querySelectorAll('#giBulletinYearList input:checked')].map(el => Number(el.value)).filter(Number.isFinite).sort((a,b) => a-b);
+  if (checked.length) return checked;
   const start = Number(document.getElementById('giBulletinStartRange')?.value || giFdcYears[giFdcYears.length - 1]);
   const end = Number(document.getElementById('giBulletinEndRange')?.value || giFdcYears[0]);
   const minYear = Math.min(start, end);
@@ -4643,11 +4645,52 @@ function giBulletinSetRangeYears(years) {
   const sorted = (years || []).map(Number).filter(Number.isFinite).sort((a,b) => a-b);
   const startInput = document.getElementById('giBulletinStartRange');
   const endInput = document.getElementById('giBulletinEndRange');
-  if (!startInput || !endInput || !sorted.length) return;
+  if (!startInput || !endInput) return;
+  if (!sorted.length) {
+    startInput.value = giFdcYears[giFdcYears.length - 1];
+    endInput.value = giFdcYears[giFdcYears.length - 1];
+    giBulletinUpdateRangeLabels();
+    giBulletinUpdateSelectedYearDisplay();
+    return;
+  }
   startInput.value = sorted[0];
   endInput.value = sorted[sorted.length - 1];
   giBulletinUpdateRangeLabels();
   giBulletinUpdateSelectedYearDisplay();
+}
+function giBulletinSetCheckedYears(years) {
+  const yearSet = new Set((years || []).map(Number));
+  document.querySelectorAll('#giBulletinYearList input').forEach(el => { el.checked = yearSet.has(Number(el.value)); });
+  giBulletinUpdateSelectedYearDisplay();
+}
+function giBulletinApplyRangeSelection() {
+  giBulletinClampRange();
+  const start = Number(document.getElementById('giBulletinStartRange')?.value || giFdcYears[giFdcYears.length - 1]);
+  const end = Number(document.getElementById('giBulletinEndRange')?.value || giFdcYears[0]);
+  const years = giFdcYears.filter(year => year >= Math.min(start,end) && year <= Math.max(start,end));
+  giBulletinSetCheckedYears(years);
+}
+function giBulletinSyncRangesFromSelection() {
+  const years = giBulletinSelectedYears();
+  const startInput = document.getElementById('giBulletinStartRange');
+  const endInput = document.getElementById('giBulletinEndRange');
+  if (!startInput || !endInput || !years.length) return;
+  startInput.value = Math.min(...years);
+  endInput.value = Math.max(...years);
+  giBulletinUpdateRangeLabels();
+}
+function giBulletinBuildYearSelector() {
+  const host = document.getElementById('giBulletinYearList');
+  const startInput = document.getElementById('giBulletinStartRange');
+  const endInput = document.getElementById('giBulletinEndRange');
+  if (!host || !startInput || !endInput) return;
+  const minYear = Math.min(...giFdcYears);
+  const maxYear = Math.max(...giFdcYears);
+  startInput.min = endInput.min = minYear;
+  startInput.max = endInput.max = maxYear;
+  const defaultYears = giFdcYears.slice(0, 5).sort((a,b)=>a-b);
+  host.innerHTML = giFdcYears.map((year) => `<label class="fdc-year-chip"><input type="checkbox" value="${year}" ${defaultYears.includes(year) ? 'checked' : ''}> ${year}</label>`).join('');
+  giBulletinSetRangeYears(defaultYears);
 }
 function giFdcUpdateAllYearDisplays() {
   giFdcUpdateRangeLabels();
@@ -4732,38 +4775,55 @@ function initGrandIslandFdcLive() {
     renderGrandIslandFdcLive();
   }));
 
+  giBulletinBuildYearSelector();
+
   document.getElementById('giBulletinStartRange')?.addEventListener('input', () => {
     giBulletinUpdateRangeLabels();
-    giBulletinUpdateSelectedYearDisplay();
+    giBulletinApplyRangeSelection();
   });
   document.getElementById('giBulletinEndRange')?.addEventListener('input', () => {
     giBulletinUpdateRangeLabels();
-    giBulletinUpdateSelectedYearDisplay();
+    giBulletinApplyRangeSelection();
   });
 
   document.getElementById('giBulletinRecent5Btn')?.addEventListener('click', () => {
-    giBulletinSetRangeYears(giFdcYears.slice(0, 5).sort((a,b) => a-b));
+    const years = giFdcYears.slice(0, 5).sort((a,b) => a-b);
+    giBulletinSetCheckedYears(years);
+    giBulletinSetRangeYears(years);
     renderGiBulletinFromControls();
   });
   document.getElementById('giBulletinRecent10Btn')?.addEventListener('click', () => {
-    giBulletinSetRangeYears(giFdcYears.slice(0, 10).sort((a,b) => a-b));
+    const years = giFdcYears.slice(0, 10).sort((a,b) => a-b);
+    giBulletinSetCheckedYears(years);
+    giBulletinSetRangeYears(years);
     renderGiBulletinFromControls();
   });
   document.getElementById('giBulletinAllBtn')?.addEventListener('click', () => {
-    giBulletinSetRangeYears(giFdcYears.slice().sort((a,b) => a-b));
+    const years = giFdcYears.slice().sort((a,b) => a-b);
+    giBulletinSetCheckedYears(years);
+    giBulletinSetRangeYears(years);
     renderGiBulletinFromControls();
   });
   document.getElementById('giBulletinClearBtn')?.addEventListener('click', () => {
-    const startInput = document.getElementById('giBulletinStartRange');
-    const endInput = document.getElementById('giBulletinEndRange');
-    if (startInput) startInput.value = giFdcYears[giFdcYears.length - 1];
-    if (endInput) endInput.value = giFdcYears[giFdcYears.length - 1];
-    giBulletinUpdateRangeLabels();
-    giBulletinUpdateSelectedYearDisplay();
+    giBulletinSetCheckedYears([]);
+    giBulletinSetRangeYears([]);
     giRenderBulletin17C([], []);
   });
   document.getElementById('giBulletinRunBtn')?.addEventListener('click', renderGiBulletinFromControls);
+  document.getElementById('giBulletinCustomToggle')?.addEventListener('click', () => {
+    const wrap = document.getElementById('giBulletinCustomWrap');
+    if (!wrap) return;
+    wrap.classList.toggle('show');
+    const expanded = wrap.classList.contains('show');
+    document.getElementById('giBulletinCustomToggle').setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  });
+  document.querySelectorAll('#giBulletinYearList input').forEach(el => el.addEventListener('change', () => {
+    giBulletinSyncRangesFromSelection();
+    giBulletinUpdateSelectedYearDisplay();
+    renderGiBulletinFromControls();
+  }));
 
+  giBulletinSetCheckedYears(giFdcYears.slice(0, 5).sort((a,b) => a-b));
   giBulletinSetRangeYears(giFdcYears.slice(0, 5).sort((a,b) => a-b));
   renderGrandIslandFdcLive();
   renderNorthPlatteMonthlyComparison(npMonthlySelectedYears());
