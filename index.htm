@@ -779,63 +779,180 @@ document.addEventListener('DOMContentLoaded', () => {
       .prrip-stat-sub, .prrip-note, .protected-flow-row span { font-size:.96rem; }
     }
 
-
-
-    
-    .flow-story-wrap { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(320px,.8fr); gap:1.2rem; align-items:stretch; }
-    .flow-story-panel { position:relative; overflow:hidden; border:1px solid rgba(255,255,255,.08); border-radius:1.35rem; background:
-      radial-gradient(circle at 18% 22%, rgba(103,215,255,.08), transparent 20%),
-      radial-gradient(circle at 28% 72%, rgba(197,140,255,.08), transparent 18%),
-      radial-gradient(circle at 72% 42%, rgba(105,240,200,.08), transparent 18%),
-      linear-gradient(180deg, rgba(8,18,40,.96), rgba(4,10,24,.96)); min-height:680px; }
-    .flow-story-stage { position:relative; height:100%; min-height:680px; padding:1rem; }
-    .flow-story-svg { width:100%; height:100%; display:block; }
-    .flow-controls { display:flex; gap:.65rem; flex-wrap:wrap; margin-bottom:1rem; }
-    .flow-tab { border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03); color:#eaf3ff; border-radius:999px; padding:.72rem 1rem; font-weight:700; font-size:.92rem; transition:.25s ease; }
-    .flow-tab:hover, .flow-tab.active { background:linear-gradient(180deg, rgba(57,198,255,.18), rgba(95,143,255,.14)); border-color:rgba(95,143,255,.45); box-shadow:0 10px 22px rgba(0,0,0,.22); }
-    .flow-side { border:1px solid rgba(255,255,255,.08); border-radius:1.35rem; background:linear-gradient(180deg, rgba(8,18,40,.92), rgba(4,10,24,.96)); padding:1.25rem; min-height:680px; }
-    .flow-kicker { display:inline-flex; align-items:center; gap:.45rem; margin-bottom:.85rem; padding:.42rem .82rem; border-radius:999px; border:1px solid rgba(57,198,255,.16); background:rgba(57,198,255,.08); color:#d6f3ff; font-size:.77rem; letter-spacing:.06em; text-transform:uppercase; }
-    .flow-side h3 { font-size:clamp(1.28rem, 1.9vw, 1.75rem); line-height:1.18; margin-bottom:.9rem; color:#f7fbff; font-weight:800; }
-    .flow-side p { color:#e1ebff; line-height:1.7; font-size:1rem; margin-bottom:1rem; }
-    .flow-legend { display:grid; gap:.7rem; margin:1rem 0 1.15rem; }
-    .flow-legend-item { display:flex; align-items:center; gap:.7rem; padding:.72rem .85rem; border-radius:1rem; border:1px solid rgba(255,255,255,.07); background:rgba(255,255,255,.03); color:#eef5ff; }
-    .flow-swatch { width:34px; height:7px; border-radius:999px; display:inline-block; }
-    .flow-chip-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:.85rem; }
-    .flow-chip { border:1px solid rgba(255,255,255,.08); border-radius:1rem; padding:.9rem 1rem; background:rgba(255,255,255,.03); }
-    .flow-chip .label { min-height:auto; margin-bottom:.35rem; color:#a9c0e3; }
-    .flow-chip .value { font-size:1rem; line-height:1.3; color:#f6fbff; font-weight:700; }
-    .flow-caption { margin-top:1rem; color:#c0d4f3; font-size:.9rem; line-height:1.6; }
-    .flow-gridline { stroke:rgba(255,255,255,.06); stroke-width:1; }
-    .flow-river-label { fill:#c9dbff; font-weight:800; font-size:15px; letter-spacing:.08em; text-transform:uppercase; }
-    .flow-branch { fill:none; stroke-linecap:round; stroke-linejoin:round; opacity:.15; transition:opacity .35s ease, filter .35s ease, stroke-width .35s ease; }
-    .flow-branch.north { stroke:#55d6ff; }
-    .flow-branch.south { stroke:#b57cff; }
-    .flow-branch.mainstem { stroke:#54efbf; }
-    .flow-branch.active { opacity:1; stroke-width:18; }
-    #southPath.active { stroke-width:14; }
-    #plattePath.active { stroke-width:18; }
-    .flow-connector { stroke:rgba(255,255,255,.18); stroke-width:2.5; fill:none; opacity:.55; }
-    .flow-particle { opacity:0; filter:drop-shadow(0 0 10px rgba(255,255,255,.55)); }
-    .flow-particle.active { opacity:1; }
-    .flow-dot { stroke:#fff; stroke-opacity:.45; stroke-width:1.5; }
-    .flow-dot.north { fill:#55d6ff; }
-    .flow-dot.south { fill:#b57cff; }
-    .flow-dot.mainstem { fill:#54efbf; }
-    .flow-label { fill:#f8fbff; font-weight:800; font-size:13px; letter-spacing:.01em; }
-    .flow-label-bg { fill:rgba(8,16,34,.92); stroke:rgba(255,255,255,.1); stroke-width:1; }
-    .flow-reservoir { opacity:.4; transition:opacity .35s ease, transform .35s ease, filter .35s ease; }
-    .flow-reservoir.active { opacity:.82; }
-    .flow-reservoir.glow { opacity:1; filter:drop-shadow(0 0 18px rgba(255,255,255,.18)); }
-    .flow-reservoir.glow .flow-label-bg { fill:rgba(14,34,68,.96); stroke:rgba(255,255,255,.22); }
-    .flow-reservoir.glow.north .flow-label-bg { stroke:rgba(85,214,255,.58); box-shadow:0 0 0 1px rgba(85,214,255,.25) inset; }
-    .flow-reservoir.glow.south .flow-label-bg { stroke:rgba(181,124,255,.58); }
-    .flow-reservoir.glow.mainstem .flow-label-bg { stroke:rgba(84,239,191,.58); }
-    .flow-reservoir.glow .flow-label { fill:#ffffff; }
-    .flow-reservoir.glow circle { filter:drop-shadow(0 0 10px currentColor); transform:scale(1.05); transform-origin:center; }
-    .flow-node-note { fill:#c8daff; font-size:11.5px; }
-    @media (max-width: 1199px) { .flow-story-wrap { grid-template-columns:1fr; } .flow-side, .flow-story-panel, .flow-story-stage { min-height:auto; } .flow-story-panel, .flow-side { min-height:unset; } }
-    @media (max-width: 767px) { .flow-chip-grid { grid-template-columns:1fr; } .flow-controls { gap:.5rem; } .flow-tab { width:100%; text-align:left; } .flow-story-stage { padding:.35rem; } }
-
+  
+    .routing-panel {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(95,143,255,.12), transparent 22%),
+        radial-gradient(circle at 72% 28%, rgba(57,198,255,.10), transparent 24%),
+        linear-gradient(180deg, rgba(10,18,36,.96), rgba(5,11,22,.98));
+    }
+    .routing-grid { display:grid; grid-template-columns:minmax(0,1.6fr) minmax(320px,.9fr); gap:1.1rem; align-items:stretch; }
+    .routing-stage {
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:1.25rem;
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      padding:1rem;
+      min-height:520px;
+      position:relative;
+      overflow:hidden;
+    }
+    .routing-sidebar {
+      display:grid;
+      grid-template-rows:auto auto 1fr;
+      gap:1rem;
+    }
+    .routing-card {
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:1.2rem;
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      padding:1rem 1rem .95rem;
+    }
+    .routing-legend {
+      display:flex;
+      gap:.6rem;
+      flex-wrap:wrap;
+      margin-top:.8rem;
+    }
+    .routing-pill {
+      display:inline-flex;
+      align-items:center;
+      gap:.45rem;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:999px;
+      padding:.42rem .8rem;
+      background:rgba(255,255,255,.03);
+      color:#dbe7ff;
+      font-size:.8rem;
+    }
+    .routing-dot {
+      width:.7rem; height:.7rem; border-radius:50%; display:inline-block;
+      box-shadow:0 0 10px currentColor;
+    }
+    .routing-kpis {
+      display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem;
+    }
+    .routing-kpi {
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:1rem;
+      padding:.85rem .9rem;
+      background:rgba(255,255,255,.025);
+    }
+    .routing-kpi .label { min-height:0; margin-bottom:.2rem; }
+    .routing-kpi .value { font-size:1.2rem; font-weight:800; line-height:1.1; }
+    .routing-list { display:grid; gap:.7rem; margin-top:.1rem; }
+    .routing-row {
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:.7rem;
+      align-items:center;
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:1rem;
+      padding:.7rem .8rem;
+      background:rgba(255,255,255,.02);
+    }
+    .routing-row small { color:var(--muted); display:block; margin-top:.14rem; }
+    .routing-flow-badge {
+      border-radius:999px;
+      padding:.35rem .65rem;
+      font-size:.8rem;
+      font-weight:700;
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.08);
+      white-space:nowrap;
+    }
+    .routing-help {
+      color:#c8d8f7;
+      font-size:.9rem;
+      line-height:1.55;
+      margin:.15rem 0 0;
+    }
+    .routing-title-wrap { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; margin-bottom:1rem; }
+    .routing-mini-note { max-width:460px; }
+    .routing-svg { width:100%; height:100%; min-height:460px; display:block; }
+    .river-path, .canal-path, .return-path {
+      fill:none;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+      transition: stroke-width .5s ease, opacity .5s ease, filter .5s ease;
+    }
+    .river-path.north { stroke:#5f8fff; }
+    .river-path.south { stroke:#b99bff; }
+    .river-path.main { stroke:#39c6ff; }
+    .canal-path { stroke:#ffb35c; opacity:.28; stroke-dasharray:7 10; }
+    .canal-path.active { opacity:.9; filter:drop-shadow(0 0 8px rgba(255,179,92,.45)); }
+    .return-path { stroke:#42e2c7; opacity:.3; stroke-dasharray:6 9; }
+    .return-path.active { opacity:.85; filter:drop-shadow(0 0 8px rgba(66,226,199,.4)); }
+    .routing-label {
+      font-size:13px;
+      font-weight:700;
+      fill:#eaf3ff;
+      paint-order:stroke;
+      stroke:rgba(4,9,19,.96);
+      stroke-width:4px;
+      stroke-linejoin:round;
+    }
+    .routing-sub {
+      font-size:11px;
+      font-weight:600;
+      fill:#a9bfdc;
+      paint-order:stroke;
+      stroke:rgba(4,9,19,.96);
+      stroke-width:4px;
+    }
+    .municipality-label {
+      font-size:12px;
+      fill:#ffd89c;
+      font-weight:700;
+      paint-order:stroke;
+      stroke:rgba(4,9,19,.96);
+      stroke-width:4px;
+    }
+    .reservoir-node, .junction-node, .canal-node {
+      transition: transform .3s ease, filter .35s ease, fill .35s ease, opacity .35s ease;
+      transform-box: fill-box;
+      transform-origin: center;
+    }
+    .reservoir-node.active, .junction-node.active, .canal-node.active {
+      filter: drop-shadow(0 0 12px rgba(255,209,102,.75));
+      transform: scale(1.2);
+    }
+    .reservoir-ring { fill:rgba(255,209,102,.16); stroke:rgba(255,209,102,.45); stroke-width:1.5; }
+    .reservoir-core { fill:#9cc9ff; stroke:#d8e9ff; stroke-width:1.5; }
+    .reservoir-node.active .reservoir-core { fill:#ffd166; }
+    .junction-node circle { fill:#d7dfff; stroke:#fff; stroke-width:1.4; }
+    .junction-node.active circle { fill:#ffd166; }
+    .canal-node circle { fill:#ffb35c; stroke:#ffe1b8; stroke-width:1.1; opacity:.45; }
+    .canal-node.active circle { opacity:1; }
+    .flow-particle {
+      pointer-events:none;
+      filter:drop-shadow(0 0 10px currentColor);
+    }
+    .routing-step-tabs { display:flex; gap:.55rem; flex-wrap:wrap; }
+    .routing-tab {
+      border:1px solid rgba(255,255,255,.09);
+      background:rgba(255,255,255,.03);
+      color:#eaf3ff;
+      border-radius:999px;
+      padding:.48rem .85rem;
+      font-size:.84rem;
+      font-weight:700;
+      cursor:pointer;
+      transition:.25s ease;
+    }
+    .routing-tab.active, .routing-tab:hover { background:rgba(57,198,255,.12); border-color:rgba(57,198,255,.35); color:#bfefff; }
+    @media (max-width: 1100px) {
+      .routing-grid { grid-template-columns:1fr; }
+      .routing-stage { min-height:460px; }
+    }
+    @media (max-width: 700px) {
+      .routing-kpis { grid-template-columns:1fr; }
+      .routing-stage { min-height:420px; padding:.8rem; }
+      .routing-svg { min-height:380px; }
+      .routing-label { font-size:12px; }
+      .routing-sub, .municipality-label { font-size:10px; }
+    }
 
   </style>
 </head>
@@ -964,131 +1081,200 @@ document.addEventListener('DOMContentLoaded', () => {
   </section>
 
 
-  
-  <section class="glass p-3 p-lg-4 mb-4" id="platteFlowStorySection">
-    <div class="section-title mb-3">
-      <i class="bi bi-bezier2 fs-2 accent-blue"></i>
-      <div>
-        <h2 class="h4 mb-0">Platte Basin flow animation</h2>
-        <div class="tiny">North Platte and South Platte flow paths route to the confluence at North Platte. Downstream of that point, the corridor is treated as the Platte River.</div>
+  <section class="glass routing-panel p-3 p-lg-4 mb-4" id="routingAnimationSection">
+    <div class="routing-title-wrap">
+      <div class="section-title mb-0">
+        <i class="bi bi-signpost-split fs-2 accent-cyan"></i>
+        <div>
+          <h2 class="h4 mb-0">Platte River flow routing</h2>
+          <div class="tiny routing-mini-note">Animated flow paths show how water moves from the North Platte and South Platte headwaters to their confluence, then through the Platte River corridor. Active DNR canal gages illuminate where water is currently leaving the river or returning to it.</div>
+        </div>
+      </div>
+      <div class="routing-step-tabs" id="routingTabs">
+        <button class="routing-tab active" data-step="north">North Platte</button>
+        <button class="routing-tab" data-step="south">South Platte</button>
+        <button class="routing-tab" data-step="platte">Platte River</button>
+        <button class="routing-tab" data-step="demand">Diversions + returns</button>
+        <button class="routing-tab" data-step="all">Play all</button>
       </div>
     </div>
 
-    <div class="flow-controls" id="flowStoryTabs">
-      <button class="flow-tab active" type="button" data-step="north">1. North Platte headwaters</button>
-      <button class="flow-tab" type="button" data-step="south">2. South Platte headwaters</button>
-      <button class="flow-tab" type="button" data-step="confluence">3. Confluence at North Platte</button>
-      <button class="flow-tab" type="button" data-step="platte">4. Platte River downstream</button>
-      <button class="flow-tab" type="button" data-step="play">Play all</button>
-    </div>
+    <div class="routing-grid">
+      <div class="routing-stage">
+        <svg id="routingSvg" class="routing-svg" viewBox="0 0 1120 540" preserveAspectRatio="xMidYMid meet" aria-label="Animated Platte River routing schematic">
+          <defs>
+            <linearGradient id="routingGridFade" x1="0" x2="1">
+              <stop offset="0%" stop-color="rgba(255,255,255,.05)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+            </linearGradient>
+          </defs>
 
-    <div class="flow-story-wrap">
-      <div class="flow-story-panel">
-        <div class="flow-story-stage">
-          <svg class="flow-story-svg" viewBox="0 0 1100 680" role="img" aria-label="Animated Platte Basin flow schematic">
-            <g aria-hidden="true">
-              <line class="flow-gridline" x1="170" y1="56" x2="170" y2="624"></line>
-              <line class="flow-gridline" x1="390" y1="56" x2="390" y2="624"></line>
-              <line class="flow-gridline" x1="610" y1="56" x2="610" y2="624"></line>
-              <line class="flow-gridline" x1="830" y1="56" x2="830" y2="624"></line>
-              <line class="flow-gridline" x1="1050" y1="56" x2="1050" y2="624"></line>
-              <line class="flow-gridline" x1="50" y1="150" x2="1070" y2="150"></line>
-              <line class="flow-gridline" x1="50" y1="340" x2="1070" y2="340"></line>
-              <line class="flow-gridline" x1="50" y1="530" x2="1070" y2="530"></line>
+          <g opacity=".26">
+            <path d="M40 68 H1080 M40 182 H1080 M40 296 H1080 M40 410 H1080" stroke="rgba(255,255,255,.07)"/>
+            <path d="M150 30 V510 M340 30 V510 M530 30 V510 M720 30 V510 M910 30 V510" stroke="rgba(255,255,255,.05)"/>
+          </g>
+
+          <path id="northPlattePath" class="river-path north" d="M58 110 C118 86 176 82 238 96 S348 132 412 170 S514 210 574 224" stroke-width="8"/>
+          <path id="southPlattePath" class="river-path south" d="M134 408 C206 374 286 340 368 304 S498 264 574 224" stroke-width="8"/>
+          <path id="platteMainPath" class="river-path main" d="M574 224 C660 230 740 242 812 274 S938 328 1060 332" stroke-width="9"/>
+
+          <path id="triCountyPath" class="canal-path" d="M808 276 C836 254 878 232 924 216" stroke-width="5"/>
+          <path id="cnppidSupplyPath" class="canal-path" d="M690 248 C726 224 768 202 818 182" stroke-width="5"/>
+          <path id="thirtyMilePath" class="canal-path" d="M742 258 C770 280 806 300 852 314" stroke-width="4"/>
+          <path id="orchardPath" class="canal-path" d="M862 304 C902 286 938 272 976 264" stroke-width="4"/>
+          <path id="dawsonPath" class="canal-path" d="M832 288 C860 308 900 334 938 354" stroke-width="4"/>
+          <path id="kearneyCanalPath" class="canal-path" d="M944 322 C978 312 1012 306 1048 304" stroke-width="4"/>
+
+          <path id="johnsonReturnPath" class="return-path" d="M828 182 C846 214 860 246 874 292" stroke-width="4"/>
+          <path id="jeffreyReturnPath" class="return-path" d="M760 198 C778 236 804 270 840 298" stroke-width="4"/>
+          <path id="kearneyReturnPath" class="return-path" d="M1010 304 C1002 320 994 336 988 352" stroke-width="4"/>
+
+          <g id="northNodes">
+            <g class="reservoir-node" id="nodeSeminoe" transform="translate(186 92)">
+              <circle class="reservoir-ring" r="18"></circle><circle class="reservoir-core" r="6.8"></circle>
             </g>
+            <text class="routing-label" x="186" y="64" text-anchor="middle">Seminoe Reservoir</text>
 
-            <text class="flow-river-label" x="92" y="86">North Platte River</text>
-            <text class="flow-river-label" x="96" y="500">South Platte River</text>
-            <text class="flow-river-label" x="740" y="286">Platte River</text>
-
-            <path id="northPath" class="flow-branch north active" d="M72,142 C142,116 204,114 256,136 C312,160 350,210 404,248 C462,289 535,318 608,331"></path>
-            <path id="southPath" class="flow-branch south" d="M106,492 C215,439 316,392 418,366 C494,347 552,337 608,331"></path>
-            <path id="plattePath" class="flow-branch mainstem" d="M608,331 C694,340 776,357 861,395 C929,426 987,450 1048,471"></path>
-
-            <g id="northReservoirs">
-              <path class="flow-connector" d="M148,142 L148,106"></path>
-              <g class="flow-reservoir north active" id="res-seminoe" transform="translate(86,64)">
-                <rect class="flow-label-bg" rx="16" ry="16" width="134" height="48"></rect><circle class="flow-dot north" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Seminoe Reservoir</text>
-              </g>
-
-              <path class="flow-connector" d="M230,136 L246,96"></path>
-              <g class="flow-reservoir north active" id="res-kortes" transform="translate(188,54)">
-                <rect class="flow-label-bg" rx="16" ry="16" width="126" height="48"></rect><circle class="flow-dot north" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Kortes Reservoir</text>
-              </g>
-
-              <path class="flow-connector" d="M337,194 L362,150"></path>
-              <g class="flow-reservoir north active" id="res-pathfinder" transform="translate(290,108)">
-                <rect class="flow-label-bg" rx="16" ry="16" width="148" height="48"></rect><circle class="flow-dot north" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Pathfinder Reservoir</text>
-              </g>
-
-              <path class="flow-connector" d="M430,267 L470,227"></path>
-              <g class="flow-reservoir north active" id="res-alcova" transform="translate(416,185)">
-                <rect class="flow-label-bg" rx="16" ry="16" width="126" height="48"></rect><circle class="flow-dot north" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Alcova Reservoir</text>
-              </g>
-
-              <path class="flow-connector" d="M470,287 L540,248"></path>
-              <g class="flow-reservoir north active" id="res-grayreef" transform="translate(524,206)">
-                <rect class="flow-label-bg" rx="16" ry="16" width="148" height="48"></rect><circle class="flow-dot north" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Gray Reef Reservoir</text>
-              </g>
-
-              <path class="flow-connector" d="M520,308 L612,272"></path>
-              <g class="flow-reservoir north active" id="res-glendo" transform="translate(596,230)">
-                <rect class="flow-label-bg" rx="16" ry="16" width="132" height="48"></rect><circle class="flow-dot north" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Glendo Reservoir</text>
-              </g>
-
-              <path class="flow-connector" d="M568,321 L736,288"></path>
-              <g class="flow-reservoir north active" id="res-guernsey" transform="translate(720,246)">
-                <rect class="flow-label-bg" rx="16" ry="16" width="152" height="48"></rect><circle class="flow-dot north" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Guernsey Reservoir</text>
-              </g>
-
-              <path class="flow-connector" d="M606,331 L884,324"></path>
-              <g class="flow-reservoir north active" id="res-mcconaughy" transform="translate(868,282)">
-                <rect class="flow-label-bg" rx="16" ry="16" width="170" height="48"></rect><circle class="flow-dot north" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Lake McConaughy</text>
-              </g>
+            <g class="reservoir-node" id="nodeKortes" transform="translate(270 108)">
+              <circle class="reservoir-ring" r="18"></circle><circle class="reservoir-core" r="6.8"></circle>
             </g>
+            <text class="routing-label" x="270" y="80" text-anchor="middle">Kortes Reservoir</text>
 
-            <g id="southNodes">
-              <g class="flow-reservoir south" id="node-south-head" transform="translate(160,514)">
-                <rect class="flow-label-bg" rx="16" ry="16" width="164" height="48"></rect><circle class="flow-dot south" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">South Platte River</text>
-              </g>
+            <g class="reservoir-node" id="nodePathfinder" transform="translate(364 150)">
+              <circle class="reservoir-ring" r="18"></circle><circle class="reservoir-core" r="6.8"></circle>
             </g>
+            <text class="routing-label" x="364" y="122" text-anchor="middle">Pathfinder Reservoir</text>
 
-            <g id="platteNodes">
-              <g class="flow-reservoir mainstem" id="node-confluence" transform="translate(546,346)">
-                <rect class="flow-label-bg" rx="16" ry="16" width="180" height="48"></rect><circle class="flow-dot mainstem" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Confluence at North Platte</text>
-              </g>
-              <g class="flow-reservoir mainstem" id="node-platte" transform="translate(760,392)">
-                <rect class="flow-label-bg" rx="16" ry="16" width="126" height="48"></rect><circle class="flow-dot mainstem" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Platte River</text>
-              </g>
-              <g class="flow-reservoir mainstem" id="node-grandisland" transform="translate(922,462)">
-                <rect class="flow-label-bg" rx="16" ry="16" width="132" height="48"></rect><circle class="flow-dot mainstem" cx="16" cy="24" r="6"></circle><text class="flow-label" x="30" y="29">Grand Island</text>
-              </g>
+            <g class="reservoir-node" id="nodeAlcova" transform="translate(470 196)">
+              <circle class="reservoir-ring" r="18"></circle><circle class="reservoir-core" r="6.8"></circle>
             </g>
+            <text class="routing-label" x="470" y="168" text-anchor="middle">Alcova Reservoir</text>
 
-            <circle id="particleNorth" class="flow-particle" r="8" fill="#d7fbff"></circle>
-            <circle id="particleSouth" class="flow-particle" r="8" fill="#f0ddff"></circle>
-            <circle id="particlePlatte" class="flow-particle" r="8" fill="#dbfff2"></circle>
-          </svg>
+            <g class="reservoir-node" id="nodeGrayReef" transform="translate(518 212)">
+              <circle class="reservoir-ring" r="18"></circle><circle class="reservoir-core" r="6.8"></circle>
+            </g>
+            <text class="routing-label" x="518" y="184" text-anchor="middle">Gray Reef</text>
+
+            <g class="reservoir-node" id="nodeGlendo" transform="translate(548 220)">
+              <circle class="reservoir-ring" r="18"></circle><circle class="reservoir-core" r="6.8"></circle>
+            </g>
+            <text class="routing-label" x="548" y="252" text-anchor="middle">Glendo Reservoir</text>
+
+            <g class="reservoir-node" id="nodeGuernsey" transform="translate(572 224)">
+              <circle class="reservoir-ring" r="18"></circle><circle class="reservoir-core" r="6.8"></circle>
+            </g>
+            <text class="routing-label" x="572" y="194" text-anchor="middle">Guernsey Reservoir</text>
+          </g>
+
+          <g id="southNodes">
+            <g class="junction-node" id="nodeSouthPlatteHead" transform="translate(204 374)">
+              <circle r="5.5"></circle>
+            </g>
+            <text class="routing-label" x="204" y="346" text-anchor="middle">South Platte inflow</text>
+          </g>
+
+          <g id="platteNodes">
+            <g class="junction-node" id="nodeConfluence" transform="translate(574 224)">
+              <circle r="6"></circle>
+            </g>
+            <text class="routing-label" x="624" y="213">Confluence at North Platte</text>
+            <text class="routing-sub" x="624" y="230">North + South Platte become the Platte River</text>
+
+            <g class="reservoir-node" id="nodeMcConaughy" transform="translate(696 248)">
+              <circle class="reservoir-ring" r="18"></circle><circle class="reservoir-core" r="6.8"></circle>
+            </g>
+            <text class="routing-label" x="696" y="219" text-anchor="middle">Lake McConaughy</text>
+
+            <text class="municipality-label" x="556" y="282">North Platte</text>
+            <text class="municipality-label" x="782" y="334">Overton</text>
+            <text class="municipality-label" x="900" y="384">Kearney</text>
+            <text class="municipality-label" x="1016" y="370">Grand Island</text>
+          </g>
+
+          <g id="demandNodes">
+            <g class="canal-node" id="nodeSupply" transform="translate(818 182)"><circle r="5.2"></circle></g>
+            <text class="routing-label" x="818" y="154" text-anchor="middle">Supply Canal</text>
+
+            <g class="canal-node" id="nodeTriCounty" transform="translate(924 216)"><circle r="5.2"></circle></g>
+            <text class="routing-label" x="924" y="188" text-anchor="middle">Tri-County Canal</text>
+
+            <g class="canal-node" id="nodeThirtyMile" transform="translate(852 314)"><circle r="5.2"></circle></g>
+            <text class="routing-label" x="852" y="346" text-anchor="middle">Thirty Mile Canal</text>
+
+            <g class="canal-node" id="nodeDawson" transform="translate(938 354)"><circle r="5.2"></circle></g>
+            <text class="routing-label" x="938" y="386" text-anchor="middle">Dawson County Canal</text>
+
+            <g class="canal-node" id="nodeKearneyCanal" transform="translate(1048 304)"><circle r="5.2"></circle></g>
+            <text class="routing-label" x="1048" y="276" text-anchor="end">Kearney Canal</text>
+
+            <g class="canal-node" id="nodeOrchard" transform="translate(976 264)"><circle r="5.2"></circle></g>
+            <text class="routing-label" x="976" y="236" text-anchor="middle">Orchard-Alfalfa Canal</text>
+
+            <g class="canal-node" id="nodeJohnsonReturn" transform="translate(874 292)"><circle r="5.2"></circle></g>
+            <text class="routing-label" x="874" y="324" text-anchor="middle">Johnson return</text>
+
+            <g class="canal-node" id="nodeJeffreyReturn" transform="translate(840 298)"><circle r="5.2"></circle></g>
+            <text class="routing-label" x="840" y="270" text-anchor="middle">Jeffrey return</text>
+
+            <g class="canal-node" id="nodeKearneyReturn" transform="translate(988 352)"><circle r="5.2"></circle></g>
+            <text class="routing-label" x="988" y="384" text-anchor="middle">Kearney return</text>
+          </g>
+
+          <circle id="routingParticleNorth" class="flow-particle" r="5.5" fill="#5f8fff"></circle>
+          <circle id="routingParticleSouth" class="flow-particle" r="5.5" fill="#b99bff"></circle>
+          <circle id="routingParticleMain" class="flow-particle" r="6.2" fill="#39c6ff"></circle>
+          <circle id="routingParticleCanal" class="flow-particle" r="4.9" fill="#ffb35c"></circle>
+          <circle id="routingParticleReturn" class="flow-particle" r="4.7" fill="#42e2c7"></circle>
+        </svg>
+
+        <div class="routing-legend">
+          <span class="routing-pill"><span class="routing-dot" style="color:#5f8fff;background:#5f8fff"></span>North Platte River</span>
+          <span class="routing-pill"><span class="routing-dot" style="color:#b99bff;background:#b99bff"></span>South Platte River</span>
+          <span class="routing-pill"><span class="routing-dot" style="color:#39c6ff;background:#39c6ff"></span>Platte River</span>
+          <span class="routing-pill"><span class="routing-dot" style="color:#ffb35c;background:#ffb35c"></span>Active diversions</span>
+          <span class="routing-pill"><span class="routing-dot" style="color:#42e2c7;background:#42e2c7"></span>Return flows</span>
         </div>
       </div>
 
-      <aside class="flow-side">
-        <div class="flow-kicker"><i class="bi bi-droplet-half"></i><span id="flowStoryKicker">North Platte headwaters</span></div>
-        <h3 id="flowStoryTitle">North Platte flow is routed through a reservoir ladder before it reaches the confluence.</h3>
-        <p id="flowStoryBody">This step stays on the North Platte River only. As water moves downstream, each reservoir label lights up in sequence so viewers can see the routing chain before the branch reaches North Platte and becomes part of the Platte River.</p>
-        <div class="flow-legend">
-          <div class="flow-legend-item"><span class="flow-swatch" style="background:#55d6ff"></span><span>North Platte River</span></div>
-          <div class="flow-legend-item"><span class="flow-swatch" style="background:#b57cff"></span><span>South Platte River</span></div>
-          <div class="flow-legend-item"><span class="flow-swatch" style="background:#54efbf"></span><span>Platte River</span></div>
+      <div class="routing-sidebar">
+        <div class="routing-card">
+          <div class="tiny text-uppercase mb-1" style="letter-spacing:.06em;">Current routing narrative</div>
+          <h3 class="h5 mb-2" id="routingStoryTitle">North Platte storage-to-river routing</h3>
+          <p class="routing-help mb-0" id="routingStoryText">Mountain snowmelt enters the North Platte system in Wyoming, then steps through the reservoir ladder before the river reaches North Platte and joins the South Platte. As the animation advances, each reservoir illuminates in sequence.</p>
         </div>
-        <div class="flow-chip-grid">
-          <div class="flow-chip"><div class="label">Focus</div><div class="value" id="flowChip1">North Platte routing</div></div>
-          <div class="flow-chip"><div class="label">Branch</div><div class="value" id="flowChip2">North Platte River</div></div>
-          <div class="flow-chip"><div class="label">Transition point</div><div class="value" id="flowChip3">Confluence at North Platte</div></div>
-          <div class="flow-chip"><div class="label">What to notice</div><div class="value" id="flowChip4">Reservoir nodes brighten as the flow front moves downstream.</div></div>
+
+        <div class="routing-card">
+          <div class="routing-kpis">
+            <div class="routing-kpi">
+              <div class="label">Grand Island flow now</div>
+              <div class="value accent-cyan" id="routingFlowNow">--</div>
+              <div class="tiny">Tracks the current dashboard flow at USGS 06770500.</div>
+            </div>
+            <div class="routing-kpi">
+              <div class="label">Active Platte diversions</div>
+              <div class="value accent-orange" id="routingDiversionCount">--</div>
+              <div class="tiny">Only Platte-basin canal or supply gages with non-zero discharge.</div>
+            </div>
+            <div class="routing-kpi">
+              <div class="label">Active return flow</div>
+              <div class="value accent-teal" id="routingReturnFlow">--</div>
+              <div class="tiny">Johnson, Jeffrey, and Kearney return paths illuminate when flowing.</div>
+            </div>
+            <div class="routing-kpi">
+              <div class="label">Diversion demand</div>
+              <div class="value accent-yellow" id="routingDemandShare">--</div>
+              <div class="tiny">Platte diversion total relative to current Grand Island flow.</div>
+            </div>
+          </div>
         </div>
-        <div class="flow-caption">The schematic is intentionally simplified, but the reservoirs are now shown as labeled control points tied to the North Platte route with connector stems rather than being drawn directly on top of the same line segment. That makes the downstream progression easier to read while keeping the confluence and Platte mainstem separate.</div>
-      </aside>
+
+        <div class="routing-card">
+          <div class="tiny text-uppercase mb-2" style="letter-spacing:.06em;">Live basin context</div>
+          <div class="routing-list" id="routingActiveList">
+            <div class="routing-row"><div>Loading current Platte diversion and return context…</div><span class="routing-flow-badge">--</span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1160,22 +1346,26 @@ document.addEventListener('DOMContentLoaded', () => {
   
 
 
-  <section class="glass p-3 p-lg-4 mb-4">
+    <section class="glass p-3 p-lg-4 mb-4">
     <div class="section-title mb-3">
       <i class="bi bi-activity fs-2 accent-pink"></i>
       <div>
         <h2 id="gages" class="h4 mb-0">Stream gage discharge</h2>
-        <div class="tiny">Ordered from upstream to downstream using the CNPPID river &amp; canal flow section, with NDNR real-time references and USGS fallback where needed.</div>
-        <div class="tiny mt-2">Last updated shows the most recent observation timestamp returned by the stream gage service for each site.</div>
+        <div class="tiny">Ordered from upstream to downstream using the Platte River basin routing sequence. Live USGS discharge values load on page open and refresh automatically every hour.</div>
+        <div class="tiny mt-2">Today, day-before, 1-week, and 1-month values come from USGS gage services when available for each station.</div>
+      </div>
+      <div class="ms-auto d-flex align-items-center gap-2 flex-wrap">
+        <button class="btn btn-outline-light btn-sm" id="gageRefreshBtn" type="button"><i class="bi bi-arrow-clockwise me-1"></i>Refresh flows</button>
+        <span class="tiny" id="gageRefreshStatus">Waiting for live USGS update…</span>
       </div>
     </div>
     <div class="table-responsive mb-4">
       <table class="table table-darkish align-middle mb-0" id="gageTable">
-        <thead><tr><th>Order</th><th>Gage</th><th>Today</th><th>Day before</th><th>1 week ago</th><th>1 month ago</th><th>Trend</th><th>Last updated</th><th>Sources</th></tr></thead>
-        <tbody id="gageTableBody"><tr><td colspan="9" class="text-center text-secondary py-4">Loading gage data…</td></tr></tbody>
+        <thead><tr><th>Order</th><th>Gage</th><th>Today</th><th>Day before</th><th>1 week ago</th><th>1 month ago</th><th>Trend</th><th>Last updated</th><th>Source</th></tr></thead>
+        <tbody id="gageTableBody"><tr><td colspan="9" class="text-center text-secondary py-4">Loading live USGS gage data…</td></tr></tbody>
       </table>
     </div>
-  
+
 </section>
 
 
@@ -2361,6 +2551,7 @@ function formatGageTimestamp(observationIso, retrievedAt = new Date()) {
   return `<div>${retrievedText}</div><div class="tiny">Obs time unavailable</div>`;
 }
 
+
 function renderGageTableRows(rows, retrievedAt = new Date()) {
   const body = document.getElementById('gageTableBody');
   if (!body) return;
@@ -2374,62 +2565,168 @@ function renderGageTableRows(rows, retrievedAt = new Date()) {
       <td>${Number.isFinite(r.month) ? fmt(r.month, r.month % 1 ? 1 : 0) + ' cfs' : '--'}</td>
       <td>${Number.isFinite(r.trend) ? ((r.trend >= 0 ? '+' : '') + fmt(r.trend, r.trend % 1 ? 1 : 0) + ' cfs') : '--'}</td>
       <td>${formatGageTimestamp(r.updatedAt, r.retrievedAt || retrievedAt)}</td>
-      <td><a class="source-link" target="_blank" href="${r.source}">CNPPID</a> · <a class="source-link" target="_blank" href="https://nednr.nebraska.gov/RealTime/Stations/StationsList?Source=&Type=&RiverBasin=North%20Platte%20River&FieldOffice=&StationName=0&StationNumber=0&StageDate=0&Stage=0&Discharge=0&ShiftDate=0&Shift=0&YesterdayAvg=0&Storage=0&YesterdayReservoirAvg=0&Office=0&Basin=0&StationType=0&Downstream=0">DWEE</a>${r.usgs ? ' · <a class="source-link" target="_blank" href="https://waterdata.usgs.gov/monitoring-location/' + r.usgs + '/">USGS</a>' : ''}</td>
+      <td>${r.usgs ? `<a class="source-link" target="_blank" href="https://waterdata.usgs.gov/monitoring-location/${r.usgs}/">USGS</a>` : '--'}</td>
     </tr>`).join('');
 }
 
-async function loadGages() {
-  const retrievedAt = new Date();
+async function fetchUsgsCurrentBatch(siteIds) {
+  if (!siteIds.length) return {};
+  const url = `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${siteIds.join(',')}&parameterCd=00060&siteStatus=all`;
+  const json = await safeFetch(url, true);
+  const out = {};
+  (json?.value?.timeSeries || []).forEach(series => {
+    const site = series?.sourceInfo?.siteCode?.[0]?.value;
+    const values = series?.values?.[0]?.value || [];
+    const last = values.map(v => ({
+      value: Number(v.value),
+      iso: v.dateTime
+    })).filter(v => Number.isFinite(v.value)).at(-1);
+    if (site && last) out[site] = last;
+  });
+  return out;
+}
 
-  const seededRows = cnppidFlows.map(row => {
-    const current = row.today;
-    const dayBefore = null;
-    const week = row.week;
-    const month = row.month;
-    const trend = Number.isFinite(current) && Number.isFinite(week) ? current - week : null;
-    return { ...row, current, dayBefore, week, month, trend, updatedAt: null, retrievedAt };
+async function fetchUsgsDailySummaryBatch(siteIds) {
+  if (!siteIds.length) return {};
+  const end = new Date();
+  const start = new Date(end.getTime() - 45 * 86400000);
+  const fmtDate = d => d.toISOString().slice(0,10);
+  const url = `https://waterservices.usgs.gov/nwis/dv/?format=json&sites=${siteIds.join(',')}&parameterCd=00060&startDT=${fmtDate(start)}&endDT=${fmtDate(end)}&siteStatus=all`;
+  const json = await safeFetch(url, true);
+  const out = {};
+  (json?.value?.timeSeries || []).forEach(series => {
+    const site = series?.sourceInfo?.siteCode?.[0]?.value;
+    const values = series?.values?.[0]?.value || [];
+    const byDate = new Map(values.map(v => [String(v.dateTime).slice(0,10), Number(v.value)]));
+    const pick = daysAgo => {
+      const d = new Date();
+      d.setDate(d.getDate() - daysAgo);
+      const key = d.toISOString().slice(0,10);
+      const val = byDate.get(key);
+      return Number.isFinite(val) ? val : null;
+    };
+    if (site) out[site] = { dayBefore: pick(1), week: pick(7), month: pick(30) };
+  });
+  return out;
+}
+
+let gageAutoRefreshHandle = null;
+let gageRefreshInFlight = false;
+
+function syncGrandIslandDisplays(flow, updatedIso = null) {
+  const normalized = Number.isFinite(flow) ? flow : null;
+  const gage = cnppidFlows.find(r => r.usgs === '06770500');
+  if (gage && normalized !== null) gage.today = normalized;
+  const currentEls = [
+    document.getElementById('giFdcCurrentFlow'),
+    document.getElementById('dashboardCurrentFlowValue'),
+    document.getElementById('currentFlowValue')
+  ].filter(Boolean);
+  currentEls.forEach(el => {
+    el.textContent = normalized !== null ? `${normalized.toLocaleString()} cfs` : '--';
+  });
+  const updatedLabel = document.getElementById('prripGrandIslandUpdated');
+  if (updatedLabel) {
+    updatedLabel.textContent = normalized !== null && updatedIso
+      ? `USGS Grand Island (06770500) · updated ${formatDateTimeDisplay(updatedIso)}`
+      : 'USGS Grand Island (06770500)';
+  }
+}
+
+async function loadGages(isManual = false) {
+  if (gageRefreshInFlight) return;
+  gageRefreshInFlight = true;
+
+  const retrievedAt = new Date();
+  const statusEl = document.getElementById('gageRefreshStatus');
+  const btn = document.getElementById('gageRefreshBtn');
+  const body = document.getElementById('gageTableBody');
+
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="bi bi-arrow-repeat spin me-1"></i>Refreshing';
+  }
+  if (statusEl) {
+    statusEl.textContent = isManual
+      ? 'Refreshing live USGS discharge values…'
+      : 'Loading live USGS discharge values for the current viewing date…';
+  }
+  if (body) {
+    body.innerHTML = '<tr><td colspan="9" class="text-center text-secondary py-4">Loading live USGS gage data…</td></tr>';
+  }
+
+  const usgsSites = cnppidFlows.filter(r => r.usgs).map(r => r.usgs);
+  let currentLookup = {};
+  let summaryLookup = {};
+  let liveOk = false;
+
+  try {
+    const [current, summary] = await Promise.all([
+      fetchUsgsCurrentBatch(usgsSites),
+      fetchUsgsDailySummaryBatch(usgsSites)
+    ]);
+    currentLookup = current || {};
+    summaryLookup = summary || {};
+    liveOk = Object.keys(currentLookup).length > 0;
+  } catch (err) {
+    console.warn('Live USGS batch update failed.', err);
+  }
+
+  const rows = cnppidFlows.map(row => {
+    const currentPayload = row.usgs ? currentLookup[row.usgs] : null;
+    const summaryPayload = row.usgs ? (summaryLookup[row.usgs] || {}) : {};
+    const current = currentPayload && Number.isFinite(currentPayload.value) ? currentPayload.value : null;
+    const dayBefore = Number.isFinite(summaryPayload.dayBefore) ? summaryPayload.dayBefore : null;
+    const week = Number.isFinite(summaryPayload.week) ? summaryPayload.week : null;
+    const month = Number.isFinite(summaryPayload.month) ? summaryPayload.month : null;
+    const trend = Number.isFinite(current) && Number.isFinite(dayBefore)
+      ? current - dayBefore
+      : (Number.isFinite(current) && Number.isFinite(week) ? current - week : null);
+    return {
+      ...row,
+      current,
+      dayBefore,
+      week,
+      month,
+      trend,
+      updatedAt: currentPayload ? currentPayload.iso || null : null,
+      retrievedAt
+    };
   });
 
-  latestGageRows = seededRows;
-  renderGageTableRows(seededRows, retrievedAt);
-  renderFlowPathCards(seededRows);
-  renderNdweeOpsPanel(seededRows);
-  const seededGi = seededRows.find(r => r.label === 'Platte at Grand Island');
-  renderPrripHydrology(seededGi?.current ?? seededGi?.today ?? null, formatDateTimeDisplay(seededGi?.retrievedAt ?? retrievedAt));
-
-  const rows = [];
-  for (const row of cnppidFlows) {
-    let current = row.today;
-    let dayBefore = null;
-    let week = row.week;
-    let month = row.month;
-    let updatedAt = null;
-    let retrievedAtRow = new Date();
-    if (row.usgs) {
-      try {
-        const [cur, summary] = await Promise.allSettled([fetchUsgsCurrent(row.usgs), fetchUsgsDailySummary(row.usgs)]);
-        if (cur.status === 'fulfilled' && cur.value) {
-          if (Number.isFinite(cur.value.value)) current = cur.value.value;
-          updatedAt = cur.value.iso || null;
-        }
-        if (summary.status === 'fulfilled' && summary.value) {
-          dayBefore = summary.value.dayBefore;
-          if (Number.isFinite(summary.value.week)) week = summary.value.week;
-          if (Number.isFinite(summary.value.month)) month = summary.value.month;
-        }
-      } catch (e) {}
-    }
-    const trend = Number.isFinite(current) && Number.isFinite(dayBefore) ? current - dayBefore : (Number.isFinite(current) && Number.isFinite(week) ? current - week : null);
-    retrievedAtRow = new Date();
-    rows.push({ ...row, current, dayBefore, week, month, trend, updatedAt, retrievedAt: retrievedAtRow });
-  }
   latestGageRows = rows;
   renderGageTableRows(rows, retrievedAt);
   renderFlowPathCards(rows);
   renderNdweeOpsPanel(rows);
-  const gi = rows.find(r => r.label === 'Platte at Grand Island');
-  renderPrripHydrology(gi?.current ?? gi?.today ?? null, formatDateTimeDisplay(gi?.updatedAt ?? gi?.retrievedAt ?? retrievedAt));
+
+  const gi = rows.find(r => r.usgs === '06770500');
+  syncGrandIslandDisplays(gi?.current ?? null, gi?.updatedAt ?? null);
+  renderPrripHydrology(gi?.current ?? null, formatDateTimeDisplay(gi?.updatedAt ?? retrievedAt));
+
+  if (statusEl) {
+    const updatedCount = rows.filter(r => Number.isFinite(r.current)).length;
+    statusEl.textContent = liveOk
+      ? `Live USGS updated ${updatedCount} gage${updatedCount === 1 ? '' : 's'} at ${formatDateTimeDisplay(retrievedAt)}. Auto-refresh runs every hour.`
+      : 'Live USGS update failed from this HTML session. Open the USGS-linked source column to verify connectivity, then try Refresh flows again.';
+  }
+  if (btn) {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="bi bi-arrow-clockwise me-1"></i>Refresh flows';
+  }
+  gageRefreshInFlight = false;
 }
+
+function initGageAutoRefresh() {
+  const btn = document.getElementById('gageRefreshBtn');
+  if (btn && !btn.dataset.bound) {
+    btn.dataset.bound = '1';
+    btn.addEventListener('click', () => loadGages(true));
+  }
+  if (gageAutoRefreshHandle) clearInterval(gageAutoRefreshHandle);
+  gageAutoRefreshHandle = setInterval(() => loadGages(false), 60 * 60 * 1000);
+  loadGages(false);
+}
+
 function buildSiteSelector() {
 
   const host = document.getElementById('siteSelector');
@@ -4512,7 +4809,7 @@ renderWyReservoirUpdateSummary();
 refreshWyomingReservoirs().catch(err => { console.warn('Wyoming reservoir refresh failed', err); renderWyReservoirUpdateSummary(); });
 renderReservoirCards();
 renderPrripHydrology(null);
-loadGages();
+initGageAutoRefresh();
 loadET();
 initFlowDurationControls();
 renderFlowDurationSection();
@@ -4521,220 +4818,350 @@ setupDroughtTabs();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-
 <script>
 (function(){
-  const config = {
+  const ROUTING_STEPS = {
     north: {
-      kicker: 'North Platte headwaters',
-      title: 'North Platte flow is routed through a reservoir ladder before it reaches the confluence.',
-      body: 'This step follows only the North Platte River. The animated flow front moves downstream from the Wyoming headwaters through the North Platte control chain, and each reservoir label lights up as water reaches that point.',
-      chips: ['Seminoe to Lake McConaughy','North Platte River','Confluence at North Platte','Reservoir labels illuminate in downstream order.'],
-      activeBranches: ['northPath'],
-      activeReservoirs: ['res-seminoe','res-kortes','res-pathfinder','res-alcova','res-grayreef','res-glendo','res-guernsey','res-mcconaughy'],
-      particle: ['particleNorth','northPath',8200],
-      highlights: [
-        [0.08,'res-seminoe'],
-        [0.16,'res-kortes'],
-        [0.31,'res-pathfinder'],
-        [0.48,'res-alcova'],
-        [0.56,'res-grayreef'],
-        [0.70,'res-glendo'],
-        [0.82,'res-guernsey'],
-        [0.96,'res-mcconaughy']
-      ]
+      title: 'North Platte storage-to-river routing',
+      text: 'Mountain snowmelt enters the North Platte basin in Wyoming and is routed through Seminoe, Kortes, Pathfinder, Alcova, Gray Reef, Glendo, and Guernsey before the river reaches North Platte. The North Platte sequence stops at the confluence.',
+      duration: 3500,
+      actions: ['north']
     },
     south: {
-      kicker: 'South Platte headwaters',
-      title: 'The South Platte branch is shown separately until it reaches North Platte.',
-      body: 'This step isolates the South Platte River. Water is carried east from the Colorado headwaters to the confluence, where it joins the North Platte and begins the Platte River downstream.',
-      chips: ['Colorado headwaters to North Platte','South Platte River','Confluence at North Platte','Branch stays separate until the merge.'],
-      activeBranches: ['southPath'],
-      activeReservoirs: ['node-south-head','node-confluence'],
-      particle: ['particleSouth','southPath',5600],
-      highlights: [
-        [0.12,'node-south-head'],
-        [0.95,'node-confluence']
-      ]
-    },
-    confluence: {
-      kicker: 'Confluence at North Platte',
-      title: 'The Platte River begins at the confluence of the North Platte and South Platte.',
-      body: 'This frame shows the handoff. The two upstream branches arrive separately at North Platte, then the downstream corridor is treated as the Platte River from that point eastward.',
-      chips: ['North Platte + South Platte','Confluence at North Platte','Platte River begins here','Upstream branches merge into one mainstem.'],
-      activeBranches: ['northPath','southPath'],
-      activeReservoirs: ['res-mcconaughy','node-south-head','node-confluence'],
-      particles: [['particleNorth','northPath',8200],['particleSouth','southPath',5600]],
-      highlights: [[0,'res-mcconaughy'],[0,'node-south-head'],[0.9,'node-confluence']]
+      title: 'South Platte inflow to the confluence',
+      text: 'The South Platte branch enters from Colorado and converges with the North Platte at North Platte. This branch is shown independently so the two source streams are easy to distinguish before they become the Platte River.',
+      duration: 2600,
+      actions: ['south']
     },
     platte: {
-      kicker: 'Platte River downstream',
-      title: 'Below North Platte, the downstream corridor is treated as the Platte River.',
-      body: 'After the confluence, the animation leaves the North Platte and South Platte branches behind and follows the Platte River corridor alone downstream toward Grand Island.',
-      chips: ['North Platte to Grand Island','Platte River','Grand Island reach','Mainstem routing continues eastward.'],
-      activeBranches: ['plattePath'],
-      activeReservoirs: ['node-confluence','node-platte','node-grandisland'],
-      particle: ['particlePlatte','plattePath',6200],
-      highlights: [
-        [0.06,'node-confluence'],
-        [0.42,'node-platte'],
-        [0.95,'node-grandisland']
-      ]
+      title: 'Platte River downstream of the confluence',
+      text: 'Below North Platte, the downstream corridor is treated as the Platte River. The animation follows the mainstem through Lake McConaughy and east toward Overton, Kearney, and Grand Island.',
+      duration: 3600,
+      actions: ['platte']
+    },
+    demand: {
+      title: 'Current diversions and returns across the Platte corridor',
+      text: 'Only currently flowing Platte-basin canal and return gages are illuminated. Diversion lines brighten where the DNR station list shows active discharge, while return paths indicate water being routed back to the river.',
+      duration: 3200,
+      actions: ['demand']
+    },
+    all: {
+      title: 'Full Platte basin flow story',
+      text: 'This view walks through the North Platte headwaters, South Platte inflow, the combined Platte River, then the currently active diversion and return network so viewers can see why river conditions change downstream.',
+      duration: 12000,
+      actions: ['north','south','platte','demand']
     }
   };
 
-  const state = { step:'north', raf:null, start:0, duration:6000, path:null, particle:null, highlights:[], playTimer:null };
+  const northNodeIds = ['nodeSeminoe','nodeKortes','nodePathfinder','nodeAlcova','nodeGrayReef','nodeGlendo','nodeGuernsey','nodeConfluence'];
+  const southNodeIds = ['nodeSouthPlatteHead','nodeConfluence'];
+  const platteNodeIds = ['nodeConfluence','nodeMcConaughy'];
 
-  function pointAt(path, t){
-    const len = path.getTotalLength();
-    return path.getPointAtLength(Math.max(0, Math.min(1, t)) * len);
+  const canalConfig = [
+    { names:['Tri-County Canal from Platte Open Channel - DWEE','Tri-County Canal from Platte River - CNPPID'], path:'triCountyPath', node:'nodeTriCounty' },
+    { names:['Thirty Mile Canal from Platte River - DWEE'], path:'thirtyMilePath', node:'nodeThirtyMile' },
+    { names:['Orchard-Alfalfa Canal from Platte River - DWEE'], path:'orchardPath', node:'nodeOrchard' },
+    { names:['Dawson County Canal from Platte River - DWEE'], path:'dawsonPath', node:'nodeDawson' },
+    { names:['Kearney Canal from Platte River - DWEE'], path:'kearneyCanalPath', node:'nodeKearneyCanal' },
+    { names:['Phelps County Canal from Platte River - DWEE','Tri-County Canal from Platte River - CNPPID'], path:'cnppidSupplyPath', node:'nodeSupply' },
+    { names:['Johnson Power Return to Platte River - DWEE'], path:'johnsonReturnPath', node:'nodeJohnsonReturn', returnFlow:true },
+    { names:['Jeffrey Power Return to Platte River - DWEE'], path:'jeffreyReturnPath', node:'nodeJeffreyReturn', returnFlow:true },
+    { names:['Kearney Power Return to Platte River - DWEE'], path:'kearneyReturnPath', node:'nodeKearneyReturn', returnFlow:true }
+  ];
+
+  const particles = {
+    north: document.getElementById('routingParticleNorth'),
+    south: document.getElementById('routingParticleSouth'),
+    main: document.getElementById('routingParticleMain'),
+    canal: document.getElementById('routingParticleCanal'),
+    returnFlow: document.getElementById('routingParticleReturn')
+  };
+
+  const state = {
+    activeDiversions: [],
+    activeReturns: [],
+    allAnimFrame: null,
+    stepTimer: null,
+    stepToken: 0
+  };
+
+  function fmtCfs(v, digits=0){
+    const n = Number(v);
+    return Number.isFinite(n) ? n.toLocaleString(undefined, {maximumFractionDigits:digits}) + ' cfs' : '—';
   }
 
-  function clearGlow(){
-    document.querySelectorAll('.flow-reservoir').forEach(el=>el.classList.remove('glow'));
+  function parseFlowValue(text){
+    if (!text) return null;
+    const num = Number(String(text).replace(/[^0-9.\-]/g,''));
+    return Number.isFinite(num) ? num : null;
   }
 
-  function resetParticles(){
-    document.querySelectorAll('.flow-particle').forEach(el=>{
-      el.classList.remove('active');
-      el.removeAttribute('cx');
-      el.removeAttribute('cy');
+  function setParticleVisible(el, visible){
+    if (!el) return;
+    el.style.opacity = visible ? '1' : '0';
+  }
+  Object.values(particles).forEach(el => setParticleVisible(el, false));
+
+  function clearNodeState(){
+    document.querySelectorAll('#routingAnimationSection .active').forEach(el => el.classList.remove('active'));
+  }
+
+  function resetDemandVisuals(){
+    canalConfig.forEach(cfg => {
+      const pathEl = document.getElementById(cfg.path);
+      const nodeEl = document.getElementById(cfg.node);
+      if (pathEl) pathEl.classList.remove('active');
+      if (nodeEl) nodeEl.classList.remove('active');
     });
   }
 
-  function stopMotion(){
-    if(state.raf) cancelAnimationFrame(state.raf);
-    state.raf = null;
-    if(state.playTimer){
-      clearTimeout(state.playTimer);
-      state.playTimer = null;
-    }
-    resetParticles();
-    clearGlow();
-  }
-
-  function runSingleParticle(particleId, pathId, duration, highlights){
-    const particle = document.getElementById(particleId);
+  function animateAlongPath(pathId, particleEl, duration, opts={}){
     const path = document.getElementById(pathId);
-    if(!particle || !path) return;
-    particle.classList.add('active');
-    state.start = performance.now();
-    state.duration = duration;
-    state.path = path;
-    state.particle = particle;
-    state.highlights = highlights || [];
-    function frame(now){
-      const progress = Math.min(1, (now - state.start) / state.duration);
-      const p = pointAt(path, progress);
-      particle.setAttribute('cx', p.x);
-      particle.setAttribute('cy', p.y);
-      clearGlow();
-      state.highlights.forEach(([threshold, id])=>{
-        const el = document.getElementById(id);
-        if(el && progress >= threshold) el.classList.add('glow');
-      });
-      if(progress < 1){
-        state.raf = requestAnimationFrame(frame);
-      } else {
-        state.raf = null;
-      }
-    }
-    state.raf = requestAnimationFrame(frame);
-  }
+    if (!path || !particleEl) return Promise.resolve();
+    const length = path.getTotalLength();
+    const startAt = opts.startAt || 0;
+    const endAt = opts.endAt == null ? 1 : opts.endAt;
+    const token = state.stepToken;
 
-  function runMultiParticles(particles, highlights){
-    const starts = performance.now();
-    particles.forEach(([pid])=>document.getElementById(pid)?.classList.add('active'));
-    function frame(now){
-      const elapsed = now - starts;
-      clearGlow();
-      (highlights || []).forEach(([threshold, id])=>{
-        const el = document.getElementById(id);
-        if(el && (elapsed / 7000) >= threshold) el.classList.add('glow');
-      });
-      let activeAny = false;
-      particles.forEach(([pid, pathId, duration])=>{
-        const particle = document.getElementById(pid);
-        const path = document.getElementById(pathId);
-        if(!particle || !path) return;
+    return new Promise(resolve => {
+      let startTime = null;
+      setParticleVisible(particleEl, true);
+
+      function step(ts){
+        if (token !== state.stepToken) {
+          setParticleVisible(particleEl, false);
+          resolve();
+          return;
+        }
+        if (!startTime) startTime = ts;
+        const elapsed = ts - startTime;
         const progress = Math.min(1, elapsed / duration);
-        const p = pointAt(path, progress);
-        particle.setAttribute('cx', p.x);
-        particle.setAttribute('cy', p.y);
-        if(progress < 1) activeAny = true;
-      });
-      if(activeAny){
-        state.raf = requestAnimationFrame(frame);
-      } else {
-        state.raf = null;
+        const local = startAt + (endAt - startAt) * progress;
+        const point = path.getPointAtLength(local * length);
+        particleEl.setAttribute('cx', point.x);
+        particleEl.setAttribute('cy', point.y);
+        if (opts.onProgress) opts.onProgress(progress, point);
+        if (progress < 1){
+          requestAnimationFrame(step);
+        } else {
+          if (!opts.keepVisible) setParticleVisible(particleEl, false);
+          resolve();
+        }
       }
-    }
-    state.raf = requestAnimationFrame(frame);
-  }
-
-  function activateStep(step, fromPlay=false){
-    const conf = config[step];
-    if(!conf) return;
-    state.step = step;
-    if(!fromPlay && state.playTimer){
-      clearTimeout(state.playTimer);
-      state.playTimer = null;
-    }
-    if(!fromPlay){
-      document.querySelectorAll('#flowStoryTabs .flow-tab').forEach(btn=>btn.classList.toggle('active', btn.dataset.step === step));
-    }
-    document.querySelectorAll('.flow-branch').forEach(el=>el.classList.remove('active'));
-    conf.activeBranches.forEach(id=>document.getElementById(id)?.classList.add('active'));
-    document.querySelectorAll('.flow-reservoir').forEach(el=>el.classList.remove('active'));
-    conf.activeReservoirs.forEach(id=>document.getElementById(id)?.classList.add('active'));
-    document.getElementById('flowStoryKicker').textContent = conf.kicker;
-    document.getElementById('flowStoryTitle').textContent = conf.title;
-    document.getElementById('flowStoryBody').textContent = conf.body;
-    ['flowChip1','flowChip2','flowChip3','flowChip4'].forEach((id,i)=>document.getElementById(id).textContent = conf.chips[i]);
-    stopMotion();
-    if(conf.particle){
-      runSingleParticle(conf.particle[0], conf.particle[1], conf.particle[2], conf.highlights);
-    } else if(conf.particles){
-      runMultiParticles(conf.particles, conf.highlights);
-    }
-  }
-
-  function playAll(){
-    const order = ['north','south','confluence','platte'];
-    let idx = 0;
-    document.querySelectorAll('#flowStoryTabs .flow-tab').forEach(btn=>btn.classList.toggle('active', btn.dataset.step === 'play'));
-    function next(){
-      const step = order[idx];
-      activateStep(step, true);
-      idx += 1;
-      if(idx < order.length){
-        state.playTimer = setTimeout(next, 3400);
-      } else {
-        state.playTimer = null;
-      }
-    }
-    next();
-  }
-
-  document.addEventListener('DOMContentLoaded', ()=>{
-    const tabs = document.getElementById('flowStoryTabs');
-    if(!tabs) return;
-    tabs.addEventListener('click', (e)=>{
-      const btn = e.target.closest('.flow-tab');
-      if(!btn) return;
-      const step = btn.dataset.step;
-      if(step === 'play'){
-        stopMotion();
-        playAll();
-        return;
-      }
-      activateStep(step);
+      requestAnimationFrame(step);
     });
-    activateStep('north');
+  }
+
+  function activateNodesSequentially(ids, duration){
+    const per = Math.max(280, duration / Math.max(1, ids.length));
+    ids.forEach((id, idx) => {
+      setTimeout(() => {
+        if (state.stepToken < 0) return;
+        const el = document.getElementById(id);
+        if (el) el.classList.add('active');
+      }, idx * per);
+    });
+  }
+
+  function getCurrentGrandIslandFlow(){
+    const flowEl = document.getElementById('giFdcCurrentFlow');
+    const parsed = parseFlowValue(flowEl ? flowEl.textContent : '');
+    if (Number.isFinite(parsed)) return parsed;
+    const seeded = Array.isArray(window.cnppidFlows) ? window.cnppidFlows.find(r => r.usgs === '06770500') : null;
+    return seeded && Number.isFinite(Number(seeded.today)) ? Number(seeded.today) : null;
+  }
+
+  function getStationByName(name){
+    return Array.isArray(window.providedCanalStations) ? window.providedCanalStations.find(r => r.name === name) : null;
+  }
+
+  function buildActiveFlowState(){
+    const flow = getCurrentGrandIslandFlow();
+    const allStations = Array.isArray(window.providedCanalStations) ? window.providedCanalStations : [];
+    const activeDiversions = [];
+    const activeReturns = [];
+
+    canalConfig.forEach(cfg => {
+      let total = 0;
+      let matchFound = false;
+      cfg.names.forEach(name => {
+        const row = getStationByName(name);
+        if (row && Number(row.discharge) > 0){
+          total += Number(row.discharge);
+          matchFound = true;
+        }
+      });
+      const payload = { ...cfg, discharge: total, active: matchFound };
+      if (cfg.returnFlow) activeReturns.push(payload); else activeDiversions.push(payload);
+    });
+
+    state.activeDiversions = activeDiversions.filter(r => r.active);
+    state.activeReturns = activeReturns.filter(r => r.active);
+
+    const diversionTotal = state.activeDiversions.reduce((sum, r) => sum + r.discharge, 0);
+    const returnTotal = state.activeReturns.reduce((sum, r) => sum + r.discharge, 0);
+
+    const flowEl = document.getElementById('routingFlowNow');
+    if (flowEl) flowEl.textContent = Number.isFinite(flow) ? fmtCfs(flow, 0) : '—';
+    const divEl = document.getElementById('routingDiversionCount');
+    if (divEl) divEl.textContent = `${state.activeDiversions.length} active`;
+    const retEl = document.getElementById('routingReturnFlow');
+    if (retEl) retEl.textContent = fmtCfs(returnTotal, 0);
+    const demandEl = document.getElementById('routingDemandShare');
+    demandEl.textContent = Number.isFinite(flow) && flow > 0 ? `${Math.round((diversionTotal / flow) * 100)}% of GI flow` : '—';
+
+    const list = document.getElementById('routingActiveList');
+    const rows = [];
+
+    if (state.activeDiversions.length){
+      state.activeDiversions
+        .sort((a,b) => b.discharge - a.discharge)
+        .forEach(item => {
+          rows.push(`<div class="routing-row"><div><strong>${labelForConfig(item)}</strong><small>Active diversion path shown on the Platte River corridor.</small></div><span class="routing-flow-badge">${fmtCfs(item.discharge,0)}</span></div>`);
+        });
+    }
+    if (state.activeReturns.length){
+      state.activeReturns
+        .sort((a,b) => b.discharge - a.discharge)
+        .forEach(item => {
+          rows.push(`<div class="routing-row"><div><strong>${labelForConfig(item)}</strong><small>Return flow path is bright because the gage is carrying water back to the river.</small></div><span class="routing-flow-badge">${fmtCfs(item.discharge,0)}</span></div>`);
+        });
+    }
+    if (!rows.length){
+      rows.push(`<div class="routing-row"><div><strong>No currently active Platte diversion or return gages were found.</strong><small>The river paths still animate, but canal/return lines remain dim when the dashboard data show no current discharge.</small></div><span class="routing-flow-badge">0 cfs</span></div>`);
+    }
+    list.innerHTML = rows.join('');
+  }
+
+  function labelForConfig(item){
+    if (item.node === 'nodeSupply') return 'Supply Canal / CNPPID routing';
+    if (item.node === 'nodeTriCounty') return 'Tri-County Canal';
+    if (item.node === 'nodeThirtyMile') return 'Thirty Mile Canal';
+    if (item.node === 'nodeOrchard') return 'Orchard-Alfalfa Canal';
+    if (item.node === 'nodeDawson') return 'Dawson County Canal';
+    if (item.node === 'nodeKearneyCanal') return 'Kearney Canal';
+    if (item.node === 'nodeJohnsonReturn') return 'Johnson return flow';
+    if (item.node === 'nodeJeffreyReturn') return 'Jeffrey return flow';
+    if (item.node === 'nodeKearneyReturn') return 'Kearney return flow';
+    return 'Platte routing';
+  }
+
+  function updateStory(stepKey){
+    const step = ROUTING_STEPS[stepKey];
+    document.getElementById('routingStoryTitle').textContent = step.title;
+    document.getElementById('routingStoryText').textContent = step.text;
+    document.querySelectorAll('#routingTabs .routing-tab').forEach(btn => btn.classList.toggle('active', btn.dataset.step === stepKey));
+  }
+
+  async function playNorth(){
+    activateNodesSequentially(northNodeIds, ROUTING_STEPS.north.duration);
+    await animateAlongPath('northPlattePath', particles.north, ROUTING_STEPS.north.duration, { keepVisible:false });
+  }
+
+  async function playSouth(){
+    activateNodesSequentially(southNodeIds, ROUTING_STEPS.south.duration);
+    await animateAlongPath('southPlattePath', particles.south, ROUTING_STEPS.south.duration);
+  }
+
+  async function playPlatte(){
+    activateNodesSequentially(platteNodeIds, ROUTING_STEPS.platte.duration);
+    await animateAlongPath('platteMainPath', particles.main, ROUTING_STEPS.platte.duration);
+  }
+
+  async function playDemand(){
+    const activeDiversions = state.activeDiversions;
+    const activeReturns = state.activeReturns;
+    activeDiversions.forEach(item => {
+      const path = document.getElementById(item.path);
+      const node = document.getElementById(item.node);
+      if (path) {
+        path.classList.add('active');
+        path.style.strokeWidth = `${Math.max(4, Math.min(10, 3 + item.discharge / 250))}`;
+      }
+      if (node) node.classList.add('active');
+    });
+    activeReturns.forEach(item => {
+      const path = document.getElementById(item.path);
+      const node = document.getElementById(item.node);
+      if (path) {
+        path.classList.add('active');
+        path.style.strokeWidth = `${Math.max(4, Math.min(9, 3 + item.discharge / 350))}`;
+      }
+      if (node) node.classList.add('active');
+    });
+
+    const animations = [];
+    const strongestDiv = activeDiversions.slice().sort((a,b) => b.discharge - a.discharge)[0];
+    if (strongestDiv) animations.push(animateAlongPath(strongestDiv.path, particles.canal, 2200));
+    const strongestRet = activeReturns.slice().sort((a,b) => b.discharge - a.discharge)[0];
+    if (strongestRet) animations.push(animateAlongPath(strongestRet.path, particles.returnFlow, 2200));
+    if (!animations.length){
+      setParticleVisible(particles.canal, false);
+      setParticleVisible(particles.returnFlow, false);
+    }
+    await Promise.all(animations);
+  }
+
+  async function runStep(stepKey){
+    state.stepToken += 1;
+    clearTimeout(state.stepTimer);
+    clearNodeState();
+    resetDemandVisuals();
+    Object.values(particles).forEach(el => setParticleVisible(el, false));
+    updateStory(stepKey);
+
+    if (stepKey === 'north') return playNorth();
+    if (stepKey === 'south') return playSouth();
+    if (stepKey === 'platte') return playPlatte();
+    if (stepKey === 'demand') return playDemand();
+
+    if (stepKey === 'all'){
+      const tokenAtStart = state.stepToken;
+      const sequence = ['north','south','platte','demand'];
+      for (const key of sequence){
+        if (tokenAtStart !== state.stepToken) return;
+        await runStep(key);
+        if (tokenAtStart !== state.stepToken) return;
+        await new Promise(resolve => state.stepTimer = setTimeout(resolve, 380));
+      }
+      if (tokenAtStart === state.stepToken){
+        updateStory('all');
+        document.querySelectorAll('#routingTabs .routing-tab').forEach(btn => btn.classList.toggle('active', btn.dataset.step === 'all'));
+      }
+    }
+  }
+
+  function bindTabs(){
+    document.querySelectorAll('#routingTabs .routing-tab').forEach(btn => {
+      btn.addEventListener('click', () => runStep(btn.dataset.step));
+    });
+  }
+
+  function syncMainlineWidth(){
+    const flow = getCurrentGrandIslandFlow();
+    const main = document.getElementById('platteMainPath');
+    if (main && Number.isFinite(flow)){
+      main.style.strokeWidth = `${Math.max(7, Math.min(14, 6 + flow / 250))}`;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    buildActiveFlowState();
+    bindTabs();
+    syncMainlineWidth();
+    runStep('all');
+
+    const flowObserverTarget = document.getElementById('giFdcCurrentFlow');
+    if (flowObserverTarget && 'MutationObserver' in window){
+      const observer = new MutationObserver(() => {
+        buildActiveFlowState();
+        syncMainlineWidth();
+      });
+      observer.observe(flowObserverTarget, { childList:true, subtree:true, characterData:true });
+    }
   });
 })();
 </script>
-
 
 </body>
 </html>
