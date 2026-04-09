@@ -4124,21 +4124,44 @@ async function giFetchDailyValuesForSiteYearRange(site, startYear, endYear) {
   }
   return requestedYears.map(year => giSiteYearCache[site][year] || []);
 }
-function giMonthlyAcreFeet(records) {
-  const monthlyTotals = Array(12).fill(0);
+function giMonthlyAcreFeet(records, yearHint = null) {
+  const monthlyTotals = Array(12).fill(null);
+  const now = new Date();
+  const inferredYear = Number.isFinite(Number(yearHint))
+    ? Number(yearHint)
+    : Number((records || []).find(rec => /^\d{4}-\d{2}-\d{2}$/.test(rec?.date || ''))?.date?.slice(0,4));
+  const maxMonthAllowed = inferredYear === now.getFullYear() ? now.getMonth() : 11;
+  const maxDateAllowed = inferredYear === now.getFullYear()
+    ? new Date(now.getFullYear(), now.getMonth(), now.getDate())
+    : null;
+
   (records || []).forEach(rec => {
-    const monthIdx = Number(rec?.date?.slice(5,7)) - 1;
-    if (monthIdx < 0 || monthIdx > 11) return;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(rec?.date || '')) return;
+    const recDate = new Date(`${rec.date}T00:00:00`);
+    if (Number.isNaN(recDate.getTime())) return;
+    if (maxDateAllowed && recDate > maxDateAllowed) return;
+
+    const monthIdx = recDate.getMonth();
+    if (monthIdx < 0 || monthIdx > maxMonthAllowed) return;
+
     const flow = Number(rec?.flow);
     if (!Number.isFinite(flow) || flow < 0 || flow >= 1000000) return;
+    if (monthlyTotals[monthIdx] == null) monthlyTotals[monthIdx] = 0;
     monthlyTotals[monthIdx] += flow * 1.98347;
   });
-  return monthlyTotals;
+
+  return monthlyTotals.map((value, idx) => idx > maxMonthAllowed ? null : value);
 }
 function giSumMonthlyAcreFeet(yearArrays) {
-  const valid = (yearArrays || []).filter(arr => Array.isArray(arr) && arr.length);
+  const valid = (yearArrays || []).filter(entry => {
+    if (Array.isArray(entry)) return entry.length;
+    return Array.isArray(entry?.records) && entry.records.length;
+  });
   if (!valid.length) return Array(12).fill(null);
-  const monthlyPerYear = valid.map(giMonthlyAcreFeet);
+  const monthlyPerYear = valid.map(entry => {
+    if (Array.isArray(entry)) return giMonthlyAcreFeet(entry);
+    return giMonthlyAcreFeet(entry.records, entry.year);
+  });
   return Array.from({ length: 12 }, (_, idx) => {
     const vals = monthlyPerYear.map(arr => arr[idx]).filter(v => Number.isFinite(v));
     if (!vals.length) return null;
@@ -4324,8 +4347,11 @@ async function renderNorthPlatteMonthlyComparison(years) {
       return { ...siteCfg, perYear, sourceCounts };
     }));
 
-    const monthlySums = results.map(group => giSumMonthlyAcreFeet(group.perYear.map(r => r.records)));
-    const hasAny = monthlySums.some(arr => arr.some(v => Number.isFinite(v)));
+    const monthlySums = results.map(group => giSumMonthlyAcreFeet(group.perYear.map((r, idx) => ({ year: selectedYears[idx], records: r.records }))));
+    const visibleMonthIndexes = monthLabels.map((_, idx) => idx).filter(idx => monthlySums.some(arr => Number.isFinite(arr[idx])));
+    const chartLabels = visibleMonthIndexes.map(idx => monthLabels[idx]);
+    const filteredMonthlySums = monthlySums.map(arr => visibleMonthIndexes.map(idx => arr[idx]));
+    const hasAny = filteredMonthlySums.some(arr => arr.some(v => Number.isFinite(v)));
     if (!hasAny) throw new Error('No valid daily records available for either North Platte comparison gage.');
 
     if (npMonthlyDoubleBarChart) {
@@ -4335,10 +4361,10 @@ async function renderNorthPlatteMonthlyComparison(years) {
     npMonthlyDoubleBarChart = new Chart(canvas, {
       type: 'bar',
       data: {
-        labels: monthLabels,
+        labels: chartLabels,
         datasets: results.map((cfg, idx) => ({
           label: `${cfg.label} (${cfg.site})`,
-          data: monthlySums[idx],
+          data: filteredMonthlySums[idx],
           backgroundColor: cfg.color,
           borderColor: cfg.border,
           borderWidth: 1.2,
@@ -4372,7 +4398,8 @@ async function renderNorthPlatteMonthlyComparison(years) {
       return `${cfg.site}: unavailable`;
     }).join(' · ');
 
-    if (statusEl) statusEl.textContent = `Showing summed monthly acre-feet by month for ${selectedYears.length} selected year${selectedYears.length > 1 ? 's' : ''}. ${sourcesUsed}.`;
+    const shownMonthsText = chartLabels.length ? `${chartLabels[0]}${chartLabels.length > 1 ? `–${chartLabels[chartLabels.length - 1]}` : ''}` : 'none';
+    if (statusEl) statusEl.textContent = `Showing summed monthly acre-feet by month for ${selectedYears.length} selected year${selectedYears.length > 1 ? 's' : ''}. Months shown: ${shownMonthsText}. ${sourcesUsed}.`;
   } catch (err) {
     console.error(err);
     if (statusEl) statusEl.textContent = 'Unable to load enough daily discharge records for the monthly acre-feet comparison. Try refreshing the page or narrowing the year window.';
