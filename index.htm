@@ -1108,7 +1108,55 @@ document.addEventListener('DOMContentLoaded', () => {
   .platte-controls,.platte-legend{position:static;margin:12px}
   #platteRiverSvgInjected,.platte-animation-card{min-height:440px;height:440px}
 }
-</style></head>
+</style>
+<style>
+.cross-note{padding:.85rem 1rem;border:1px solid rgba(255,255,255,.09);background:linear-gradient(180deg, rgba(95,143,255,.10), rgba(10,18,34,.42));border-radius:18px;color:#d9e8ff;font-size:.92rem;line-height:1.45;}
+.cross-layout{display:grid;grid-template-columns:320px minmax(0,1fr);gap:1rem;}
+.glass-subtle{background:linear-gradient(180deg, rgba(15,27,52,.82), rgba(10,17,31,.86));border:1px solid rgba(255,255,255,.08);border-radius:24px;box-shadow:0 18px 36px rgba(0,0,0,.22);}
+.cross-sidebar,.cross-panel{padding:1rem 1rem 1.1rem;}
+.cross-sidebar-head,.cross-panel-head{display:flex;justify-content:space-between;gap:.75rem;align-items:flex-start;flex-wrap:wrap;margin-bottom:.8rem;}
+.cross-status-pill,.cross-chip{display:inline-flex;align-items:center;gap:.35rem;border-radius:999px;padding:.32rem .7rem;font-size:.78rem;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04);color:#d6e6ff;}
+.cross-status-pill.warn{background:rgba(255,209,102,.12);color:#ffe4a6;border-color:rgba(255,209,102,.25);}
+.cross-status-pill.good{background:rgba(49,221,182,.12);color:#b8ffe9;border-color:rgba(49,221,182,.28);}
+.cross-chip.current{background:rgba(57,198,255,.12);color:#bfeeff;border-color:rgba(57,198,255,.24);}
+.cross-chip.bankfull{background:rgba(255,100,127,.12);color:#ffcad4;border-color:rgba(255,100,127,.24);}
+.cross-chip-row{display:flex;gap:.4rem;flex-wrap:wrap;}
+.cross-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;margin-bottom:.85rem;}
+.cross-metric,.cross-compare-card{padding:.85rem .9rem;border-radius:20px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);}
+.cross-metric .label,.cross-compare-card .label{font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:#97afd6;margin-bottom:.22rem;}
+.cross-metric .value,.cross-compare-card .value{font-size:1.25rem;font-weight:700;color:#f4f8ff;line-height:1.15;}
+.cross-metric .value.value-small,.cross-compare-card .value.value-small{font-size:.96rem;line-height:1.35;font-weight:600;}
+.cross-metric .sub,.cross-compare-card .sub{font-size:.76rem;color:#a9bfe0;margin-top:.18rem;line-height:1.35;}
+.cross-top-controls{margin:0 0 1rem 0;padding:.9rem 1rem;border:1px solid rgba(255,255,255,.08);border-radius:22px;background:linear-gradient(180deg, rgba(14,24,45,.88), rgba(8,14,27,.78));box-shadow:0 14px 28px rgba(0,0,0,.18);}
+.cross-tab-label{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:#9eb7dd;margin-bottom:.6rem;font-weight:700;}
+.cross-selector{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.65rem;}
+.cross-select-btn{border:none;background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));color:#eef5ff;border:1px solid rgba(170,205,255,.18);border-radius:16px;padding:.78rem .9rem;font-size:.95rem;font-weight:700;letter-spacing:.01em;cursor:pointer;transition:.18s ease;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);min-height:52px;}
+.cross-select-btn.active,.cross-select-btn:hover{background:linear-gradient(180deg, rgba(95,143,255,.34), rgba(57,198,255,.16));border-color:rgba(115,182,255,.55);color:#ffffff;transform:translateY(-1px);box-shadow:0 10px 24px rgba(26,76,163,.24);}
+.cross-main{display:grid;gap:1rem;}
+.cross-svg-wrap{position:relative;border-radius:24px;padding:.55rem;background:radial-gradient(circle at 50% 0%, rgba(95,143,255,.08), transparent 36%), linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));}
+#crossSectionSvg{width:100%;height:auto;display:block;}
+.cross-footnote{margin-top:.55rem;font-size:.8rem;color:#9bb3d8;line-height:1.4;}
+.cross-bottom-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:1rem;align-items:stretch;}
+.cross-bankfull-wrap{position:relative;height:280px;min-height:280px;max-height:280px;overflow-x:auto;overflow-y:hidden;border-radius:18px;padding:.35rem;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));}
+.cross-bankfull-inner{height:100%;min-width:100%;}
+.cross-bankfull-wrap canvas{width:100% !important;height:100% !important;display:block;}
+.cross-compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;}
+.cross-mini-pop{position:absolute;min-width:240px;max-width:280px;padding:.7rem .8rem;border-radius:18px;background:linear-gradient(180deg, rgba(7,14,27,.96), rgba(10,17,31,.92));border:1px solid rgba(255,255,255,.10);box-shadow:0 18px 30px rgba(0,0,0,.28);backdrop-filter:blur(8px);color:#ecf3ff;pointer-events:none;opacity:0;transform:translateY(6px);transition:.18s ease;z-index:6;}
+.cross-mini-pop.visible{opacity:1;transform:translateY(0);}
+.cross-mini-title{font-weight:700;font-size:.92rem;margin-bottom:.18rem;}
+.cross-mini-sub{font-size:.76rem;color:#a9bfe0;margin-bottom:.45rem;}
+.cross-mini-row{display:flex;justify-content:space-between;gap:.7rem;font-size:.8rem;margin-top:.2rem;color:#d9e8ff;}
+.cross-mini-svg{width:100%;height:auto;display:block;margin-top:.35rem;}
+.cross-hotspot{cursor:pointer;filter:drop-shadow(0 0 10px rgba(57,198,255,.35));}
+.cross-hotspot-ring{fill:rgba(57,198,255,.18);stroke:rgba(184,238,255,.9);stroke-width:2;animation:crossPulse 2.2s infinite;}
+.cross-hotspot-core{fill:#dff8ff;stroke:#39c6ff;stroke-width:3;}
+.cross-hotspot-label{font-size:12px;font-weight:700;fill:#dceeff;letter-spacing:.04em;pointer-events:none;}
+@keyframes crossPulse{0%{r:10;opacity:.85;}70%{r:18;opacity:.18;}100%{r:20;opacity:0;}}
+@media (max-width: 991.98px){.cross-layout,.cross-bottom-grid{grid-template-columns:1fr;}.cross-metrics,.cross-compare-grid{grid-template-columns:1fr 1fr;}.cross-selector{grid-template-columns:repeat(2,minmax(0,1fr));}}
+@media (max-width: 575.98px){.cross-metrics,.cross-compare-grid,.cross-selector{grid-template-columns:1fr;}.cross-select-btn{font-size:.9rem;padding:.72rem .8rem;}}
+</style>
+
+</head>
 <body>
 <nav class="navbar navbar-expand-lg sticky-top">
 <div class="container py-2">
@@ -1285,6 +1333,115 @@ document.addEventListener('DOMContentLoaded', () => {
 </div>
 </div>
 </section>
+<section class="glass p-3 p-lg-4 mb-4" id="channel-cross-sections">
+<div class="section-title mb-3">
+<i class="bi bi-arrows-expand-vertical fs-2 accent-cyan"></i>
+<div>
+<h2 class="h4 mb-0">River cross-section explorer</h2>
+<div class="tiny">Hover the highlighted gage nodes on the flow path above to preview an active-channel cross section, current stage, and a quick view of bankfull pressure.</div>
+</div>
+</div>
+<div class="cross-note mb-3">Prototype concept for dashboard design. Current stage is pulled from live USGS gage-height service when available; historic geometry and bankfull trend visuals below are clean comparative sketches meant to show how the feature could work once surveyed cross sections and verified bankfull thresholds are wired in.</div>
+<div class="cross-top-controls">
+  <div class="cross-tab-label">Choose stream gage</div>
+  <div class="cross-selector" id="crossSectionSelector"></div>
+</div>
+<div class="cross-layout">
+  <div class="cross-sidebar glass-subtle">
+    <div class="cross-sidebar-head">
+      <div>
+        <div class="tiny text-uppercase" style="letter-spacing:.08em;">Selected gage</div>
+        <h3 class="h5 mb-1" id="crossSectionTitle">Platte at Overton</h3>
+        <div class="tiny" id="crossSectionSubtitle">Hover a node on the route map or use the buttons below.</div>
+      </div>
+      <span class="cross-status-pill" id="crossStageStatus">Stage loading…</span>
+    </div>
+    <div class="cross-metrics">
+      <div class="cross-metric">
+        <div class="label">Current stage</div>
+        <div class="value" id="crossMetricStage">--</div>
+        <div class="sub" id="crossMetricStageSub">USGS gage height</div>
+      </div>
+      <div class="cross-metric">
+        <div class="label">Current discharge</div>
+        <div class="value" id="crossMetricFlow">--</div>
+        <div class="sub">Live discharge from dashboard gage refresh</div>
+      </div>
+      <div class="cross-metric">
+        <div class="label">Bankfull threshold</div>
+        <div class="value" id="crossMetricBankfull">--</div>
+        <div class="sub" id="crossMetricPressure">--</div>
+      </div>
+      <div class="cross-metric">
+        <div class="label">Capacity signal</div>
+        <div class="value" id="crossMetricCapacity">--</div>
+        <div class="sub">Historic vs present active channel</div>
+      </div>
+    </div>
+  </div>
+  <div class="cross-main">
+    <div class="cross-panel glass-subtle">
+      <div class="cross-panel-head">
+        <div>
+          <h3 class="h5 mb-1">Current cross section</h3>
+          <div class="tiny" id="crossPanelCaption">Present-day active channel with bankfull line, current stage fill, and historic outline overlay.</div>
+        </div>
+        <div class="cross-chip-row">
+          <span class="cross-chip">Historic outline</span>
+          <span class="cross-chip current">Current water surface</span>
+          <span class="cross-chip bankfull">Bankfull</span>
+        </div>
+      </div>
+      <div class="cross-svg-wrap">
+        <svg id="crossSectionSvg" viewBox="0 0 760 330" aria-label="River cross section explorer"></svg>
+      </div>
+      <div class="cross-footnote" id="crossSectionFootnote">Dashed outline approximates a broader historic section; solid outline reflects present-day active geometry.</div>
+    </div>
+    <div class="cross-bottom-grid">
+      <div class="cross-panel glass-subtle">
+        <div class="cross-panel-head">
+          <div>
+            <h3 class="h6 mb-1">Bankfull-event trend</h3>
+            <div class="tiny">Illustrative count of bankfull-or-higher days per decade to show a possible attenuation trend at this gage.</div>
+          </div>
+        </div>
+        <div class="cross-bankfull-wrap"><div class="cross-bankfull-inner" id="crossBankfullInner"><canvas id="crossBankfullChart"></canvas></div></div>
+      </div>
+      <div class="cross-panel glass-subtle">
+        <div class="cross-panel-head">
+          <div>
+            <h3 class="h6 mb-1">Geometry comparison</h3>
+            <div class="tiny">Simple before/after metrics that can later be replaced with surveyed sections.</div>
+          </div>
+        </div>
+        <div class="cross-compare-grid">
+          <div class="cross-compare-card">
+            <div class="label">Historic top width</div>
+            <div class="value" id="historicTopWidth">--</div>
+            <div class="sub" id="historicEra">Reference era</div>
+          </div>
+          <div class="cross-compare-card">
+            <div class="label">Present top width</div>
+            <div class="value" id="presentTopWidth">--</div>
+            <div class="sub" id="presentEra">Current reference</div>
+          </div>
+          <div class="cross-compare-card">
+            <div class="label">Bankfull stage</div>
+            <div class="value" id="bankfullStageValue">--</div>
+            <div class="sub">Threshold used in this concept</div>
+          </div>
+          <div class="cross-compare-card">
+            <div class="label">Interpretation</div>
+            <div class="value value-small" id="capacityNarrative">--</div>
+            <div class="sub">Design text for future live thresholding</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
 <section class="glass p-3 p-lg-4 mb-4">
 <div class="section-title mb-3">
 <i class="bi bi-cup-straw fs-2 accent-teal"></i>
@@ -2669,6 +2826,7 @@ async function loadGages(isManual = false) {
   });
 
   latestGageRows = rows;
+  if (typeof window.refreshCrossSectionExplorer === 'function') window.refreshCrossSectionExplorer();
   renderGageTableRows(rows, retrievedAt);
   renderFlowPathCards(rows);
   renderNdweeOpsPanel(rows);
@@ -5449,6 +5607,604 @@ setupDroughtTabs();
   }
 })();
 </script>
+
+
+<script>
+(function(){
+  const crossSectionSites = [
+    { key:'northplatte', label:'North Platte at North Platte', short:'North Platte', usgs:'06693000', svg:{x:864,y:295,labelX:822,labelY:266}, historicEra:'1950s section', presentEra:'2026 concept', historic:{topWidth:840, bankfullDepth:11.4, insetWidth:280, offset:-34}, present:{topWidth:620, bankfullDepth:8.6, insetWidth:190, offset:-22}, bankfull:{stage:7.6, stageRefDischarge:3500}, narrative:'Present section appears narrower and shallower than the historic sketch, so large releases would spill less often unless sustained flows are higher.', fallbackTrend:[26,19,13,9] },
+    { key:'overton', label:'Platte at Overton', short:'Overton', usgs:'06768000', svg:{x:988,y:321,labelX:946,labelY:292}, historicEra:'1940s section', presentEra:'2026 concept', historic:{topWidth:980, bankfullDepth:9.8, insetWidth:360, offset:-20}, present:{topWidth:690, bankfullDepth:7.1, insetWidth:240, offset:-12}, bankfull:{stage:6.2, stageRefDischarge:4200}, narrative:'The concept suggests reduced overbank frequency and more attenuation through a contracted active channel corridor at Overton.', fallbackTrend:[31,23,16,11] },
+    { key:'kearney', label:'Platte at Kearney', short:'Kearney', usgs:'06770200', svg:{x:1094,y:323,labelX:1052,labelY:294}, historicEra:'1930s section', presentEra:'2026 concept', historic:{topWidth:1120, bankfullDepth:8.7, insetWidth:430, offset:-8}, present:{topWidth:760, bankfullDepth:6.5, insetWidth:265, offset:-4}, bankfull:{stage:5.6, stageRefDischarge:5000}, narrative:'Kearney is sketched with the largest historic braid width reduction, which would be consistent with fewer bankfull days and stronger high-flow attenuation.', fallbackTrend:[34,25,17,12] },
+    { key:'grandisland', label:'Platte at Grand Island', short:'Grand Island', usgs:'06770500', svg:{x:1170,y:309,labelX:1106,labelY:280}, historicEra:'1930s section', presentEra:'2026 concept', historic:{topWidth:1260, bankfullDepth:8.1, insetWidth:500, offset:6}, present:{topWidth:820, bankfullDepth:5.9, insetWidth:290, offset:10}, bankfull:{stage:5.1, stageRefDischarge:4500}, narrative:'Grand Island prototype geometry shows a contracted active section, so the dashboard could flag when high releases no longer approach the historic overbank envelope.', fallbackTrend:[28,21,15,10] }
+  ];
+  const siteMap = Object.fromEntries(crossSectionSites.map(s => [s.key, s]));
+  let selectedKey = 'overton';
+  let hoverLock = false;
+  let stageLookup = {};
+  let liveLookup = {};
+  let ratingTableCache = {};
+  let bankfullHistoryCache = {};
+  let bankfullChart = null;
+  let miniPop = null;
+
+  function fmtStage(v){ return Number.isFinite(v) ? `${v.toFixed(2)} ft` : '—'; }
+  function fmtCfs(v){ return Number.isFinite(v) ? `${Math.round(v).toLocaleString()} cfs` : '—'; }
+  function fmtDateLabel(iso){
+    if(!iso) return 'Time unavailable';
+    try{
+      return new Date(iso).toLocaleString('en-US', { month:'short', day:'numeric', year:'numeric', hour:'numeric', minute:'2-digit' });
+    }catch(err){
+      return 'Time unavailable';
+    }
+  }
+  function getRows(){
+    if (typeof latestGageRows !== 'undefined' && Array.isArray(latestGageRows) && latestGageRows.length) return latestGageRows;
+    if (Array.isArray(window.latestGageRows) && window.latestGageRows.length) return window.latestGageRows;
+    if (typeof cnppidFlows !== 'undefined' && Array.isArray(cnppidFlows) && cnppidFlows.length) return cnppidFlows;
+    if (Array.isArray(window.cnppidFlows) && window.cnppidFlows.length) return window.cnppidFlows;
+    return [];
+  }
+  function getRow(site){ return getRows().find(r => r.usgs === site.usgs || r.label === site.label) || null; }
+  function parseFlowValue(v){
+    if (v === null || v === undefined || v === '') return null;
+    if (typeof v === 'string'){
+      const cleaned = v.replace(/,/g,'').match(/-?\d+(?:\.\d+)?/);
+      if (!cleaned) return null;
+      const num = Number(cleaned[0]);
+      return Number.isFinite(num) ? num : null;
+    }
+    const num = Number(v);
+    return Number.isFinite(num) ? num : null;
+  }
+  function getCurrentFlow(row){
+    if (!row) return null;
+    const candidates = [
+      row.current, row.discharge, row.currentDischarge, row.current_cfs,
+      row.today, row.latest, row.value, row.flow, row.cfs,
+      row.week, row.month, row.year
+    ];
+    for (const candidate of candidates){
+      const parsed = parseFlowValue(candidate);
+      if (Number.isFinite(parsed)) return parsed;
+    }
+    return null;
+  }
+  function getBankfullDischarge(site){
+    const cached = bankfullHistoryCache[site.usgs];
+    if (cached && Number.isFinite(cached.threshold)) return cached.threshold;
+    return site.bankfull.stageRefDischarge;
+  }
+  function getRatingPoints(site){
+    const cached = ratingTableCache[site.usgs];
+    return Array.isArray(cached?.points) && cached.points.length ? cached.points : null;
+  }
+  function interpolateRatingValue(points, xKey, yKey, xVal){
+    if(!Array.isArray(points) || points.length < 2 || !Number.isFinite(xVal)) return null;
+    const sorted = points.slice().sort((a,b) => a[xKey] - b[xKey]);
+    if (xVal < sorted[0][xKey] || xVal > sorted[sorted.length-1][xKey]) return null;
+    for(let i = 0; i < sorted.length - 1; i += 1){
+      const a = sorted[i], b = sorted[i+1];
+      if (xVal === a[xKey]) return a[yKey];
+      if (xVal === b[xKey]) return b[yKey];
+      if (xVal > a[xKey] && xVal < b[xKey]){
+        const span = b[xKey] - a[xKey];
+        if (!Number.isFinite(span) || span === 0) return a[yKey];
+        const ratio = (xVal - a[xKey]) / span;
+        return a[yKey] + ratio * (b[yKey] - a[yKey]);
+      }
+    }
+    return sorted[sorted.length - 1][yKey];
+  }
+  function stageForDischarge(points, discharge){
+    return interpolateRatingValue(points, 'discharge', 'stage', discharge);
+  }
+  function dischargeForStage(points, stage){
+    return interpolateRatingValue(points, 'stage', 'discharge', stage);
+  }
+  function getBankfullStage(site){
+    const points = getRatingPoints(site);
+    const bankfullDischarge = getBankfullDischarge(site);
+    const ratedStage = points ? stageForDischarge(points, bankfullDischarge) : null;
+    return Number.isFinite(ratedStage) ? ratedStage : site.bankfull.stage;
+  }
+  function inferStage(site, flow){
+    const bankfullDischarge = getBankfullDischarge(site);
+    const bankfullStage = getBankfullStage(site);
+    if (!Number.isFinite(flow) || !Number.isFinite(site.bankfull.stage) || !Number.isFinite(bankfullDischarge)) return null;
+    const ratio = Math.max(0.12, flow / bankfullDischarge);
+    return Math.max(1.2, Math.min(site.bankfull.stage * 1.24, site.bankfull.stage * Math.pow(ratio, 0.42)));
+  }
+  function parseDvSeries(json){
+    const rows = [];
+    (((json||{}).value||{}).timeSeries || []).forEach(ts => {
+      const values = ts?.values?.[0]?.value || [];
+      values.forEach(v => {
+        const flow = Number(v?.value);
+        const iso = v?.dateTime;
+        if (Number.isFinite(flow) && iso) rows.push({ date: iso.slice(0,10), flow });
+      });
+    });
+    return rows;
+  }
+  function getDecadeLabel(year){
+    if (!Number.isFinite(year)) return null;
+    return `${Math.floor(year / 10) * 10}s`;
+  }
+  function estimateRecurrenceThreshold(annualMaxima, recurrenceYears=1.5){
+    const vals = annualMaxima.filter(Number.isFinite).slice().sort((a,b)=>b-a);
+    const n = vals.length;
+    if (!n) return null;
+    const rawRank = (n + 1) / recurrenceYears;
+    if (rawRank <= 1) return vals[0];
+    if (rawRank >= n) return vals[n-1];
+    const lowerIdx = Math.floor(rawRank) - 1;
+    const upperIdx = Math.ceil(rawRank) - 1;
+    if (lowerIdx === upperIdx) return vals[lowerIdx];
+    const frac = rawRank - Math.floor(rawRank);
+    return vals[lowerIdx] + (vals[upperIdx] - vals[lowerIdx]) * frac;
+  }
+  function summarizeBankfullHistory(site, dailyRows){
+    if (!Array.isArray(dailyRows) || !dailyRows.length) return null;
+    const now = new Date();
+    const lastCompleteYear = now.getFullYear() - 1;
+    const annualMeta = {};
+    dailyRows.forEach(row => {
+      const year = Number((row.date || '').slice(0,4));
+      if (!Number.isFinite(year) || year > lastCompleteYear) return;
+      const flow = Number(row.flow);
+      if (!Number.isFinite(flow)) return;
+      if (!annualMeta[year]) annualMeta[year] = { max:-Infinity, count:0 };
+      annualMeta[year].max = Math.max(annualMeta[year].max, flow);
+      annualMeta[year].count += 1;
+    });
+    const validYears = Object.entries(annualMeta)
+      .map(([year, meta]) => ({ year:Number(year), max:meta.max, count:meta.count }))
+      .filter(d => Number.isFinite(d.max) && d.count >= 300)
+      .sort((a,b) => a.year - b.year);
+    if (!validYears.length) return null;
+    const threshold = estimateRecurrenceThreshold(validYears.map(d => d.max), 1.5);
+    if (!Number.isFinite(threshold)) return null;
+    const bucketMap = new Map();
+    validYears.forEach(({year}) => {
+      const label = getDecadeLabel(year);
+      if (!bucketMap.has(label)) bucketMap.set(label, { label, years:new Set(), days:0 });
+      bucketMap.get(label).years.add(year);
+    });
+    dailyRows.forEach(row => {
+      const year = Number((row.date || '').slice(0,4));
+      const flow = Number(row.flow);
+      if (!Number.isFinite(year) || year > lastCompleteYear || !Number.isFinite(flow)) return;
+      const meta = annualMeta[year];
+      if (!meta || meta.count < 300) return;
+      const label = getDecadeLabel(year);
+      if (!bucketMap.has(label)) bucketMap.set(label, { label, years:new Set([year]), days:0 });
+      if (flow >= threshold) bucketMap.get(label).days += 1;
+    });
+    const events = Array.from(bucketMap.values())
+      .sort((a,b) => Number(a.label.slice(0,4)) - Number(b.label.slice(0,4)))
+      .map(bucket => {
+        const yearCount = bucket.years.size;
+        const avgDaysPerYear = yearCount ? bucket.days / yearCount : null;
+        return {
+          label: bucket.label,
+          days: bucket.days,
+          years: yearCount,
+          avgDaysPerYear: Number.isFinite(avgDaysPerYear) ? Number(avgDaysPerYear.toFixed(1)) : null
+        };
+      });
+    return {
+      threshold,
+      years: validYears.map(d => d.year),
+      annualMax: Object.fromEntries(validYears.map(d => [d.year, d.max])),
+      events,
+      source: 'USGS daily discharge (00060)',
+      fetchedAt: new Date().toISOString(),
+      note: `Computed separately for ${site.label} from complete calendar years with at least 300 daily values per year through ${lastCompleteYear}.`
+    };
+  }
+  function parseRatingTable(text){
+    if(typeof text !== 'string' || !text.trim()) return [];
+    const out = [];
+    text.split(/\r?\n/).forEach(line => {
+      const raw = line.trim();
+      if(!raw || raw.startsWith('#')) return;
+      if(/^[a-zA-Z_]/.test(raw)) return;
+      if(/^(5s|15s|20d|10d|14n)/i.test(raw)) return;
+      const parts = raw.split(/\t+|\s+/).filter(Boolean);
+      const nums = parts.map(v => Number(v)).filter(v => Number.isFinite(v));
+      if(nums.length < 2) return;
+      const stage = nums[0];
+      const discharge = nums[1];
+      if(!Number.isFinite(stage) || !Number.isFinite(discharge)) return;
+      if(stage < -50 || stage > 100 || discharge < 0) return;
+      out.push({ stage, discharge });
+    });
+    const dedup = new Map();
+    out.forEach(pt => {
+      const key = `${pt.stage.toFixed(4)}|${pt.discharge.toFixed(4)}`;
+      dedup.set(key, pt);
+    });
+    return Array.from(dedup.values()).sort((a,b) => a.stage - b.stage);
+  }
+  async function fetchRatingTable(site){
+    if(ratingTableCache[site.usgs]?.loading || ratingTableCache[site.usgs]?.loaded) return;
+    ratingTableCache[site.usgs] = { ...(ratingTableCache[site.usgs] || {}), loading:true };
+    const urls = [
+      `https://waterdata.usgs.gov/nwisweb/data/ratings/exsa/USGS.${site.usgs}.exsa.rdb`,
+      `https://waterdata.usgs.gov/nwisweb/get_ratings?file_type=exsa&site_no=${site.usgs}`
+    ];
+    let lastErr = null;
+    for (const url of urls){
+      try{
+        const res = await fetch(url, {cache:'no-store'});
+        if(!res.ok) throw new Error(`HTTP ${res.status}`);
+        const raw = await res.text();
+        const points = parseRatingTable(raw);
+        if(points.length < 2) throw new Error('No rating points parsed');
+        const matched = raw.match(/RATING ID="?([^"\s]+)/i);
+        ratingTableCache[site.usgs] = {
+          loading:false,
+          loaded:true,
+          fetchedAt:new Date().toISOString(),
+          source:url,
+          ratingId: matched ? matched[1] : null,
+          points
+        };
+        updateCrossSection(selectedKey);
+        return;
+      }catch(err){
+        lastErr = err;
+      }
+    }
+    console.warn('Rating table fetch failed.', site.usgs, lastErr);
+    ratingTableCache[site.usgs] = { loading:false, loaded:false, error:true, points:[] };
+    updateCrossSection(selectedKey);
+  }
+  async function fetchBankfullHistory(site){
+    if (bankfullHistoryCache[site.usgs]?.loading) return;
+    bankfullHistoryCache[site.usgs] = { ...(bankfullHistoryCache[site.usgs] || {}), loading:true };
+    try{
+      const url = `https://waterservices.usgs.gov/nwis/dv/?format=json&sites=${site.usgs}&startDT=1900-01-01&endDT=${new Date().toISOString().slice(0,10)}&parameterCd=00060&siteStatus=all`;
+      const res = await fetch(url, {cache:'no-store'});
+      if(!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json();
+      const rows = parseDvSeries(json);
+      const summary = summarizeBankfullHistory(site, rows);
+      bankfullHistoryCache[site.usgs] = {
+        ...(summary || {}),
+        rows,
+        loading:false,
+        loaded:true
+      };
+      updateCrossSection(selectedKey);
+    }catch(err){
+      console.warn('Cross-section bankfull history fetch failed.', site.usgs, err);
+      bankfullHistoryCache[site.usgs] = {
+        loading:false,
+        loaded:false,
+        error:true,
+        threshold:site.bankfull.stageRefDischarge
+      };
+      updateCrossSection(selectedKey);
+    }
+  }
+  async function fetchCrossSectionLiveBatch(){
+    const ids = crossSectionSites.map(s => s.usgs).join(',');
+    try{
+      const url = `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${ids}&parameterCd=00060,00065&siteStatus=all`;
+      const res = await fetch(url, {cache:'no-store'});
+      if(!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json();
+      const out = {};
+      (((json||{}).value||{}).timeSeries || []).forEach(ts => {
+        const site = ts?.sourceInfo?.siteCode?.[0]?.value;
+        const variableCode = ts?.variable?.variableCode?.[0]?.value;
+        const vals = ts?.values?.[0]?.value || [];
+        const last = vals[vals.length - 1];
+        const num = Number(last?.value);
+        if(!site || !Number.isFinite(num)) return;
+        if(!out[site]) out[site] = { stage:null, discharge:null, iso:null };
+        if(variableCode === '00065') out[site].stage = num;
+        if(variableCode === '00060') out[site].discharge = num;
+        if(last?.dateTime) out[site].iso = last.dateTime;
+      });
+      liveLookup = out;
+      stageLookup = Object.fromEntries(Object.entries(out).filter(([,v]) => Number.isFinite(v.stage)).map(([k,v]) => [k, { value:v.stage, iso:v.iso || null }]));
+      updateCrossSection(selectedKey);
+    }catch(err){
+      console.warn('Cross-section live stage/discharge fetch failed.', err);
+      updateCrossSection(selectedKey);
+    }
+  }
+  function buildSelector(){
+    const host = document.getElementById('crossSectionSelector');
+    if(!host) return;
+    host.innerHTML = crossSectionSites.map(site => `<button class="cross-select-btn ${site.key === selectedKey ? 'active' : ''}" data-cross-key="${site.key}" type="button">${site.short}</button>`).join('');
+    host.querySelectorAll('[data-cross-key]').forEach(btn => btn.addEventListener('click', () => { hoverLock = true; updateCrossSection(btn.dataset.crossKey, true); }));
+  }
+  function metricClass(el, state){
+    if(!el) return;
+    el.classList.remove('warn','good');
+    if(state) el.classList.add(state);
+  }
+  function getSiteState(site){
+    const row = getRow(site);
+    const live = liveLookup[site.usgs] || null;
+    const stageObj = stageLookup[site.usgs] || (live && Number.isFinite(live.stage) ? { value:live.stage, iso:live.iso || null } : null);
+    const liveFlow = Number.isFinite(live?.discharge) ? live.discharge : getCurrentFlow(row);
+    const points = getRatingPoints(site);
+    const ratedFlow = stageObj && Number.isFinite(stageObj.value) && points ? dischargeForStage(points, stageObj.value) : null;
+    const currentFlow = Number.isFinite(liveFlow) ? liveFlow : ratedFlow;
+    const ratedStage = Number.isFinite(currentFlow) && points ? stageForDischarge(points, currentFlow) : null;
+    const inferredStage = inferStage(site, currentFlow);
+    const stage = stageObj && Number.isFinite(stageObj.value) ? stageObj.value : (Number.isFinite(ratedStage) ? ratedStage : inferredStage);
+    const flowSource = Number.isFinite(live?.discharge) ? 'live' : (Number.isFinite(getCurrentFlow(row)) ? 'gage-table' : (Number.isFinite(ratedFlow) ? 'rating' : 'missing'));
+    const stageSource = stageObj && Number.isFinite(stageObj.value) ? 'live' : (Number.isFinite(ratedStage) ? 'rating' : (Number.isFinite(inferredStage) ? 'estimated' : 'missing'));
+    return {
+      row,
+      currentFlow,
+      liveFlow,
+      ratedFlow,
+      stage,
+      stageLive: !!(stageObj && Number.isFinite(stageObj.value)),
+      stageRated: !stageObj && Number.isFinite(ratedStage),
+      stageEstimated: !stageObj && !Number.isFinite(ratedStage) && Number.isFinite(inferredStage),
+      stageSource,
+      flowSource,
+      iso: stageObj?.iso || live?.iso || row?.updatedAt || row?.retrievedAt || null,
+      ratingLoaded: !!points,
+      ratingPointCount: points?.length || 0
+    };
+  }
+  function drawCrossSection(site, stage){
+    const svg = document.getElementById('crossSectionSvg');
+    if(!svg) return;
+    const bankfullDischarge = getBankfullDischarge(site);
+    const bankfullStage = getBankfullStage(site);
+    const W = 760, H = 330, left = 62, right = 698, bankY = 88, bottomY = 278;
+    const hist = site.historic, cur = site.present;
+
+    const histL = (W - hist.topWidth)/2, histR = W - histL;
+    const curL = (W - cur.topWidth)/2, curR = W - curL;
+    const histBottomW = hist.insetWidth, curBottomW = cur.insetWidth;
+    const histBL = W/2 - histBottomW/2 + hist.offset, histBR = W/2 + histBottomW/2 + hist.offset;
+    const curBL = W/2 - curBottomW/2 + cur.offset, curBR = W/2 + curBottomW/2 + cur.offset;
+    const histBottomY = bottomY - hist.bankfullDepth*13;
+    const curBottomY = bottomY - cur.bankfullDepth*15;
+
+    const bankfullY = bottomY - bankfullStage * 26;
+    const safeBankfullStage = Number.isFinite(bankfullStage) && bankfullStage > 0 ? bankfullStage : 1;
+    const stageRatio = Number.isFinite(stage) ? Math.min(1.18, Math.max(.10, stage / safeBankfullStage)) : .34;
+    const bankfullDepthPx = Math.max(12, bottomY - bankfullY);
+    const waterDepthPx = bankfullDepthPx * Math.min(stageRatio, 1) + 10 * Math.max(stageRatio - 1, 0);
+    const waterY = Math.max(curBottomY + 4, bottomY - waterDepthPx);
+
+    // Interpolate water width only along the present channel opening so shading stays inside the cross section.
+    const openRatio = Math.max(0, Math.min(1, (curBottomY - waterY) / Math.max(1, curBottomY - bankY)));
+    const waterHalfWidth = (curBottomW/2) + ((cur.topWidth - curBottomW)/2) * openRatio;
+    const waterL = W/2 - waterHalfWidth + cur.offset;
+    const waterR = W/2 + waterHalfWidth + cur.offset;
+
+    const histPath = `M ${histL} ${bankY} L ${histBL} ${histBottomY} Q ${W/2 + hist.offset} ${histBottomY+18} ${histBR} ${histBottomY} L ${histR} ${bankY}`;
+    const curPath = `M ${curL} ${bankY} L ${curBL} ${curBottomY} Q ${W/2 + cur.offset} ${curBottomY+14} ${curBR} ${curBottomY} L ${curR} ${bankY}`;
+    const waterPath = `M ${waterL} ${waterY} Q ${W/2 + cur.offset*0.5} ${Math.max(curBottomY + 6, waterY - 4)} ${waterR} ${waterY} L ${curBR} ${curBottomY} Q ${W/2 + cur.offset} ${curBottomY+14} ${curBL} ${curBottomY} Z`;
+
+    // Consistent label positions so each gage reads the same way.
+    const labelPad = 58;
+    const topLabelY = 82;
+    const rightLabelX = right - 12;
+    const currentLabelY = Math.max(154, Math.min(208, waterY - 12));
+
+    svg.innerHTML = `
+      <defs>
+        <linearGradient id="crossWaterFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(120, 217, 255, 0.98)"/>
+          <stop offset="100%" stop-color="rgba(37, 114, 199, 0.86)"/>
+        </linearGradient>
+        <linearGradient id="crossBankFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(215, 186, 125, 0.14)"/>
+          <stop offset="100%" stop-color="rgba(90, 67, 38, 0.20)"/>
+        </linearGradient>
+        <filter id="labelHalo" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="rgba(0,0,0,0.65)"/>
+        </filter>
+      </defs>
+
+      <rect x="0" y="0" width="${W}" height="${H}" rx="28" fill="rgba(7,14,27,.45)"/>
+      <rect x="40" y="56" width="680" height="236" rx="28" fill="rgba(255,255,255,.02)" stroke="rgba(255,255,255,.06)"/>
+
+      <path d="${histPath}" fill="none" stroke="rgba(255, 209, 102, 0.82)" stroke-width="3" stroke-dasharray="10 8" stroke-linejoin="round"/>
+      <path d="${curPath} L ${curR} ${bottomY} L ${curL} ${bottomY} Z" fill="url(#crossBankFill)" stroke="rgba(239, 247, 255, 0.96)" stroke-width="3.2" stroke-linejoin="round"/>
+      <path d="${waterPath}" fill="url(#crossWaterFill)" opacity="0.98"/>
+      <line x1="${left}" y1="${bankfullY}" x2="${right}" y2="${bankfullY}" stroke="rgba(255,100,127,.92)" stroke-width="2.5" stroke-dasharray="10 6"/>
+      <line x1="${waterL}" y1="${waterY}" x2="${waterR}" y2="${waterY}" stroke="rgba(210, 244, 255, .98)" stroke-width="2.6"/>
+
+      <text x="${labelPad}" y="${topLabelY}" fill="rgba(255,230,166,.97)" font-size="12" font-weight="700" filter="url(#labelHalo)">Historic outline</text>
+      <text x="${rightLabelX}" y="${topLabelY}" text-anchor="end" fill="rgba(255,216,226,.97)" font-size="12" font-weight="700" filter="url(#labelHalo)">Bankfull ${bankfullStage.toFixed(2)} ft</text>
+      <text x="${rightLabelX}" y="${currentLabelY}" text-anchor="end" fill="rgba(223,246,255,.99)" font-size="12" font-weight="700" filter="url(#labelHalo)">Current stage ${fmtStage(stage)}</text>
+
+      <text x="${left}" y="306" fill="#9fb5d7" font-size="11">Q1.5 bankfull ≈ ${fmtCfs(bankfullDischarge)}</text>
+    `;
+  }
+  function renderMiniCrossSvg(site, stage){
+    const W=230,H=88, bankY=24, bottomY=74, cur=site.present;
+    const bankfullStage = getBankfullStage(site);
+    const curL=(W-cur.topWidth/4.2)/2, curR=W-curL, curBottomW=cur.insetWidth/4.1, curBL=W/2-curBottomW/2+cur.offset/5, curBR=W/2+curBottomW/2+cur.offset/5, curBottomY=bottomY-cur.bankfullDepth*3.1;
+    const bankfullY=bottomY-bankfullStage*5.2, stageRatio=Number.isFinite(stage)?Math.min(1.14,Math.max(.16,stage/bankfullStage)):.32, waterY=bottomY-((bottomY-bankfullY)*Math.min(stageRatio,1)+5*Math.max(stageRatio-1,0));
+    const waterW=curBottomW+(cur.topWidth/4.2-curBottomW)*Math.min(stageRatio,1)*.86, waterL=W/2-waterW/2, waterR=W/2+waterW/2;
+    const curPath=`M ${curL} ${bankY} L ${curBL} ${curBottomY} Q ${W/2+cur.offset/5} ${curBottomY+7} ${curBR} ${curBottomY} L ${curR} ${bankY}`;
+    const waterPath=`M ${waterL} ${waterY} Q ${W/2} ${waterY-3} ${waterR} ${waterY} L ${curBR} ${curBottomY} Q ${W/2+cur.offset/5} ${curBottomY+7} ${curBL} ${curBottomY} Z`;
+    return `<svg class="cross-mini-svg" viewBox="0 0 ${W} ${H}" aria-hidden="true"><path d="${curPath} L ${curR} ${bottomY} L ${curL} ${bottomY} Z" fill="rgba(215,186,125,.16)" stroke="rgba(239,247,255,.92)" stroke-width="2.3"/><path d="${waterPath}" fill="rgba(76,190,255,.88)"/><line x1="8" y1="${bankfullY}" x2="${W-8}" y2="${bankfullY}" stroke="rgba(255,100,127,.9)" stroke-width="2" stroke-dasharray="7 5"/></svg>`;
+  }
+  function updateMiniPop(siteKey, x, y, sticky=false){
+    const site = siteMap[siteKey]; if(!site || !miniPop) return;
+    const state = getSiteState(site);
+    const stage = state.stage;
+    const bankfullDischarge = getBankfullDischarge(site);
+    const bankfullStage = getBankfullStage(site);
+    const dischargeText = Number.isFinite(state.currentFlow) ? fmtCfs(state.currentFlow) : 'Unavailable';
+    miniPop.innerHTML = `<div class="cross-mini-title">${site.label}</div><div class="cross-mini-sub">${state.stageLive ? 'Live USGS stage' : (state.stageRated ? 'USGS rating-derived stage' : 'Estimated stage from discharge')} · click to lock</div>${renderMiniCrossSvg(site, stage)}<div class="cross-mini-row"><span>Stage</span><strong>${fmtStage(stage)}</strong></div><div class="cross-mini-row"><span>Discharge</span><strong>${dischargeText}</strong></div><div class="cross-mini-row"><span>Q1.5 bankfull</span><strong>${fmtCfs(bankfullDischarge)}</strong></div><div class="cross-mini-row"><span>Bankfull stage</span><strong>${fmtStage(bankfullStage)}</strong></div>`;
+    miniPop.style.left = `${x}px`; miniPop.style.top = `${y}px`; miniPop.classList.add('visible');
+    if(sticky) miniPop.dataset.sticky='1';
+  }
+  function hideMiniPop(force=false){ if(!miniPop) return; if(miniPop.dataset.sticky==='1' && !force) return; miniPop.classList.remove('visible'); miniPop.dataset.sticky=''; }
+  function addHotspots(){
+    const svg = document.getElementById('platteRiverSvgInjected');
+    const card = svg?.closest('.platte-animation-card');
+    if(!svg || !card) return;
+    card.style.position = 'relative';
+    if(!document.getElementById('crossMiniPopover')){
+      miniPop = document.createElement('div'); miniPop.id='crossMiniPopover'; miniPop.className='cross-mini-pop'; card.appendChild(miniPop);
+    } else { miniPop = document.getElementById('crossMiniPopover'); }
+    const host = document.createElementNS('http://www.w3.org/2000/svg','g');
+    host.setAttribute('id','crossHotspotLayer');
+    crossSectionSites.forEach(site => {
+      const g = document.createElementNS('http://www.w3.org/2000/svg','g'); g.setAttribute('class','cross-hotspot'); g.dataset.crossKey = site.key;
+      const ring = document.createElementNS('http://www.w3.org/2000/svg','circle'); ring.setAttribute('class','cross-hotspot-ring'); ring.setAttribute('cx',site.svg.x); ring.setAttribute('cy',site.svg.y); ring.setAttribute('r',10);
+      const core = document.createElementNS('http://www.w3.org/2000/svg','circle'); core.setAttribute('class','cross-hotspot-core'); core.setAttribute('cx',site.svg.x); core.setAttribute('cy',site.svg.y); core.setAttribute('r',6);
+      const label = document.createElementNS('http://www.w3.org/2000/svg','text'); label.setAttribute('class','cross-hotspot-label'); label.setAttribute('x',site.svg.labelX); label.setAttribute('y',site.svg.labelY); label.textContent = site.short.toUpperCase();
+      const guide = document.createElementNS('http://www.w3.org/2000/svg','line'); guide.setAttribute('x1',site.svg.labelX + 8); guide.setAttribute('y1',site.svg.labelY + 5); guide.setAttribute('x2',site.svg.x); guide.setAttribute('y2',site.svg.y); guide.setAttribute('stroke','rgba(217,232,255,.4)'); guide.setAttribute('stroke-dasharray','4 5');
+      g.appendChild(guide); g.appendChild(ring); g.appendChild(core); g.appendChild(label);
+      g.addEventListener('mouseenter', ev => { const rect = card.getBoundingClientRect(); updateMiniPop(site.key, ev.clientX-rect.left+12, ev.clientY-rect.top-18); updateCrossSection(site.key); });
+      g.addEventListener('mouseleave', () => { if(!hoverLock) hideMiniPop(); });
+      g.addEventListener('click', ev => { ev.preventDefault(); hoverLock = true; const rect = card.getBoundingClientRect(); miniPop.dataset.sticky='1'; updateMiniPop(site.key, ev.clientX-rect.left+12, ev.clientY-rect.top-18, true); updateCrossSection(site.key, true); });
+      host.appendChild(g);
+    });
+    svg.appendChild(host);
+    card.addEventListener('mouseleave', () => { hoverLock = false; hideMiniPop(true); });
+  }
+  function updateChart(site){
+    const ctx = document.getElementById('crossBankfullChart'); if(!ctx) return;
+    const chartHost = document.getElementById('crossBankfullInner');
+    if(bankfullChart) bankfullChart.destroy();
+    const hist = bankfullHistoryCache[site.usgs] || {};
+    const liveEvents = Array.isArray(hist.events) ? hist.events.filter(d => Number.isFinite(d.avgDaysPerYear)) : [];
+    const labels = liveEvents.map(d => d.label);
+    const values = liveEvents.map(d => d.avgDaysPerYear);
+    const usingLive = !!liveEvents.length;
+    const fallbackValues = Array.isArray(site.fallbackTrend) ? site.fallbackTrend : [null,null,null,null];
+    const fallbackLabels = ['1990s','2000s','2010s','2020s'];
+    const chartLabels = usingLive ? labels : fallbackLabels;
+    const chartValues = usingLive ? values : fallbackValues.map(v => Number.isFinite(v) ? v : 0);
+    if(chartHost){
+      chartHost.style.width = `${Math.max(560, chartLabels.length * 76)}px`;
+    }
+    const barColors = chartLabels.map((_, idx) => {
+      const palette = [
+        'rgba(95,143,255,.78)','rgba(57,198,255,.76)','rgba(49,221,182,.76)','rgba(255,209,102,.76)',
+        'rgba(255,159,67,.76)','rgba(255,100,127,.76)','rgba(185,155,255,.76)','rgba(127,214,255,.76)'
+      ];
+      return palette[idx % palette.length];
+    });
+    const valueLabelPlugin = {
+      id:'crossBankfullValueLabels',
+      afterDatasetsDraw(chart){
+        const {ctx} = chart;
+        const meta = chart.getDatasetMeta(0);
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        ctx.font = '600 11px Inter, system-ui, sans-serif';
+        ctx.fillStyle = '#e9f2ff';
+        meta.data.forEach((bar, idx) => {
+          const v = chart.data.datasets[0].data[idx];
+          if(!Number.isFinite(v)) return;
+          ctx.fillText(String(Math.round(v * 10) / 10).replace(/\.0$/, ''), bar.x, bar.y - 6);
+        });
+        ctx.restore();
+      }
+    };
+    bankfullChart = new Chart(ctx, {
+      type:'bar',
+      plugins:[valueLabelPlugin],
+      data:{
+        labels: chartLabels,
+        datasets:[{
+          label: usingLive ? 'Avg bankfull-or-higher days per complete year' : 'Reference bankfull trend (embedded fallback)',
+          data: chartValues,
+          borderRadius:10,
+          borderSkipped:false,
+          borderWidth:1.1,
+          borderColor:'rgba(184,221,255,.65)',
+          backgroundColor: barColors,
+          maxBarThickness: 38
+        }]
+      },
+      options:{
+        responsive:true,
+        maintainAspectRatio:false,
+        layout:{ padding:{ top:24, right:18, bottom:10, left:12 } },
+        plugins:{
+          legend:{ display:false },
+          tooltip:{
+            callbacks:{
+              label:(ctx)=>{
+                const item = liveEvents.find(d => d.label === ctx.label);
+                if(item && Number.isFinite(item.avgDaysPerYear)) return `${item.avgDaysPerYear} avg days/year (${item.days} total days across ${item.years} complete years)`;
+                return `${ctx.parsed.y ?? '--'} avg days/year (embedded fallback shown because live USGS daily-history retrieval did not load in this session)`;
+              }
+            }
+          }
+        },
+        scales:{
+          x:{ ticks:{ color:'#d7e7ff', font:{ size:12, weight:'600' }, maxRotation:0, minRotation:0, autoSkip:false, padding:8 }, grid:{ display:false } },
+          y:{ beginAtZero:true, grace:'18%', ticks:{ color:'#bfd2ef', precision:0, font:{ size:12 } }, title:{ display:true, text:'Average bankfull-or-higher days per complete year', color:'#9fb8de', font:{ size:12, weight:'700' }, padding:{ bottom:6 } }, grid:{ color:'rgba(255,255,255,.08)' } }
+        }
+      }
+    });
+  }
+  function updateCrossSection(key, userInitiated=false){
+    if(!siteMap[key]) return;
+    selectedKey = key;
+    buildSelector();
+    const site = siteMap[key], state = getSiteState(site), row = state.row, stage = state.stage;
+    const hist = bankfullHistoryCache[site.usgs] || {};
+    const bankfullDischarge = getBankfullDischarge(site);
+    const bankfullStage = getBankfullStage(site);
+    document.getElementById('crossSectionTitle').textContent = site.label;
+    document.getElementById('crossSectionSubtitle').textContent = userInitiated ? 'Selection locked from map or button.' : 'Hover another gage node above to compare cross sections.';
+    const pressure = Number.isFinite(state.currentFlow) && Number.isFinite(bankfullDischarge) ? (state.currentFlow / bankfullDischarge) : null;
+    document.getElementById('crossMetricStage').textContent = fmtStage(stage);
+    document.getElementById('crossMetricStageSub').textContent = state.stageLive
+      ? `Live USGS gage height (00065) · ${fmtDateLabel(state.iso)}${state.ratingLoaded ? ' · rating table loaded' : ''}`
+      : (state.stageRated
+        ? `Back-calculated from the active USGS rating table using current discharge · ${fmtDateLabel(state.iso)}`
+        : `Estimated from discharge because live stage and rating back-calculation were unavailable · ${fmtDateLabel(state.iso)}`);
+    document.getElementById('crossMetricFlow').textContent = Number.isFinite(state.currentFlow) ? fmtCfs(state.currentFlow) : 'Unavailable';
+    document.getElementById('crossMetricBankfull').textContent = `${fmtCfs(bankfullDischarge)} · 1.5-yr RI`;
+    document.getElementById('crossMetricPressure').textContent = Number.isFinite(pressure)
+      ? `${(pressure*100).toFixed(0)}% of Q1.5 discharge · flow source: ${state.flowSource}`
+      : (state.ratingLoaded ? `USGS rating active · flow source: ${state.flowSource}` : `Pressure unavailable · flow source: ${state.flowSource}`);
+    document.getElementById('crossMetricCapacity').textContent = `${Math.round((1 - site.present.topWidth/site.historic.topWidth)*100)}% narrower`;
+    document.getElementById('historicTopWidth').textContent = `${Math.round(site.historic.topWidth).toLocaleString()} ft`;
+    document.getElementById('presentTopWidth').textContent = `${Math.round(site.present.topWidth).toLocaleString()} ft`;
+    document.getElementById('historicEra').textContent = site.historicEra;
+    document.getElementById('presentEra').textContent = site.presentEra;
+    document.getElementById('bankfullStageValue').textContent = `${bankfullStage.toFixed(2)} ft`;
+    document.getElementById('capacityNarrative').textContent = site.narrative;
+    const statusEl = document.getElementById('crossStageStatus');
+    if(state.stageLive){ statusEl.textContent = state.ratingLoaded ? 'Live stage + rating table' : 'Live stage'; metricClass(statusEl,'good'); } else if(state.stageRated){ statusEl.textContent = 'Rating-derived stage'; metricClass(statusEl,'good'); } else if(Number.isFinite(stage)){ statusEl.textContent = 'Estimated stage'; metricClass(statusEl,'warn'); } else { statusEl.textContent = 'Stage unavailable'; metricClass(statusEl,'warn'); }
+    document.getElementById('crossPanelCaption').textContent = `${site.label} current cross section with a present-day outline, a dashed historic outline, and today's water surface.${state.ratingLoaded ? ' Water-surface placement is tied to the active USGS stage-discharge rating table when available.' : ' If the browser blocks the live USGS rating-table request, the plot falls back to a discharge-based estimate so the panel still renders.'}`;
+    const histYears = hist.years;
+    const trendSummary = Array.isArray(hist.events) ? hist.events.filter(d => Number.isFinite(d.avgDaysPerYear)).map(d => `${d.label}: ${d.avgDaysPerYear}`).join(' · ') : '';
+    document.getElementById('crossSectionFootnote').textContent = Array.isArray(histYears) && histYears.length
+      ? `Current discharge comes from the live USGS instantaneous-value service (00060) when available, while current stage comes from live USGS gage height (00065). If live stage is missing, the dashboard back-calculates stage from the active USGS rating table for this gage; if both live stage and the rating-table translation fail, the water surface is estimated from discharge. Bankfull discharge is estimated separately for each selected gage as the 1.5-year recurrence from annual daily-flow peaks using USGS daily discharge for ${histYears[0]}-${histYears[histYears.length-1]}. Only complete calendar years with at least 300 daily values are used in the recurrence and decade summaries. Bankfull stage is translated from discharge with the active USGS rating table when available. Trend bars show average bankfull-or-higher days per complete year by decade${trendSummary ? ` (${trendSummary}).` : '.'}`
+      : `Current discharge comes from the live USGS instantaneous-value service (00060) when available, while current stage comes from live USGS gage height (00065). If the browser blocks those live requests, the dashboard falls back to the rating-table translation or a discharge-based estimate so values still render. The bankfull threshold targets the 1.5-year recurrence interval. The trend panel is showing an embedded fallback trend for visual continuity until the gage-specific USGS daily-history request loads in this session.`;
+    drawCrossSection(site, stage);
+    updateChart(site);
+  }
+  function init(){
+    buildSelector();
+    addHotspots();
+    updateCrossSection(selectedKey);
+    fetchCrossSectionLiveBatch();
+    crossSectionSites.forEach(site => { fetchRatingTable(site); fetchBankfullHistory(site); });
+    setInterval(fetchCrossSectionLiveBatch, 30*60*1000);
+  }
+  window.refreshCrossSectionExplorer = function(){ updateCrossSection(selectedKey); };
+  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', init, {once:true}); } else { init(); }
+})();
+</script></script>
 
 </body>
 </html>
