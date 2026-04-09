@@ -1747,12 +1747,12 @@ const liveReservoirs = {
   "Guernsey Reservoir": { currentDate:"2026-04-02", currentElevation:4406.20, currentStorage:17839.00, teacupFill:38.9, source:"https://www.usbr.gov/gp-bin/arcweb_guer.pl", lastUpdatedText:"Hourly Reservoir Data as of 04/02/2026" }
 };
 const reservoirOverrides = {
-  "Lake McConaughy": { currentDate:"2026-01-05", currentElevation:3228.92, currentStorage:854100, pctMedian:99.3, pctMedianPeak:99.1, daysUntilPeak:159, percentile:19, medianPeakLabel:"06-13", teacupFill:51.1 },
-  "Lake Maloney": { currentDate:"2026-01-05", currentElevation:3004.7, currentStorage:17480, pctMedian:100.0, pctMedianPeak:100.0, daysUntilPeak:184, percentile:36, medianPeakLabel:"07-08", teacupFill:43.5 },
-  "Sutherland Reservoir": { currentDate:"2026-01-05", currentElevation:3047.02, currentStorage:41973, pctMedian:99.9, pctMedianPeak:99.8, daysUntilPeak:176, percentile:25, medianPeakLabel:"06-30", teacupFill:45.4 },
-  "Jeffrey Reservoir": { currentDate:"2026-01-05", currentElevation:2758.33, currentStorage:5952, pctMedian:100.0, pctMedianPeak:100.0, daysUntilPeak:142, percentile:93, medianPeakLabel:"05-27", teacupFill:64.2 },
-  "Johnson Lake": { currentDate:"2026-01-05", currentElevation:2616.29, currentStorage:37705, pctMedian:100.0, pctMedianPeak:99.9, daysUntilPeak:188, percentile:18, medianPeakLabel:"07-12", teacupFill:83.5 },
-  "Elwood Reservoir": { currentDate:"2026-01-05", currentElevation:2584.3, currentStorage:5063, pctMedian:99.9, pctMedianPeak:99.1, daysUntilPeak:157, percentile:46, medianPeakLabel:"06-11", teacupFill:10.8 }
+  "Lake McConaughy": { currentDate:"2026-04-08", currentElevation:3231.1, currentStorage:898100, pctMedian:99.3, pctMedianPeak:99.1, daysUntilPeak:159, percentile:19, medianPeakLabel:"06-13", teacupFill:51.5 },
+  "Lake Maloney": { currentDate:"2026-04-08", currentElevation:3003.74, currentStorage:15735, pctMedian:99.8, pctMedianPeak:99.0, daysUntilPeak:184, percentile:35, medianPeakLabel:"07-08", teacupFill:39.2 },
+  "Sutherland Reservoir": { currentDate:"2026-04-08", currentElevation:3049.36, currentStorage:48274, pctMedian:97.4, pctMedianPeak:97.1, daysUntilPeak:184, percentile:31, medianPeakLabel:"07-08", teacupFill:52.2 },
+  "Jeffrey Reservoir": { currentDate:"2026-04-08", currentElevation:2758.2, currentStorage:7083, pctMedian:98.0, pctMedianPeak:97.2, daysUntilPeak:159, percentile:46, medianPeakLabel:"06-13", teacupFill:76.4 },
+  "Johnson Lake": { currentDate:"2026-04-08", currentElevation:2616.2, currentStorage:37687, pctMedian:99.2, pctMedianPeak:98.8, daysUntilPeak:159, percentile:47, medianPeakLabel:"06-13", teacupFill:83.5 },
+  "Elwood Reservoir": { currentDate:"2026-04-08", currentElevation:2585.8, currentStorage:5063, pctMedian:99.9, pctMedianPeak:99.1, daysUntilPeak:157, percentile:46, medianPeakLabel:"06-11", teacupFill:10.8 }
 };
 Object.entries(reservoirOverrides).forEach(([name, override]) => {
   if (!reservoirData[name]) return;
@@ -1997,7 +1997,18 @@ function renderStorageBreakdown() {
 
 
 function reservoirUpdatedDisplay(r) {
-  const parsed = parseReservoirUpdatedDate(r.lastUpdatedText || r.currentDate);
+  const raw = String(r.lastUpdatedText || '').trim();
+  if (raw) {
+    if (/^Updated:/i.test(raw)) return raw;
+    if (/CNPPID|NPPD|Today|Readings for/i.test(raw)) return `Updated: ${raw}`;
+  }
+  const iso = String(r.currentDate || '').trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(iso)) {
+    const [y,m,d] = iso.split('-').map(Number);
+    const dt = new Date(y, m - 1, d);
+    return `Updated: ${dt.toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' })}`;
+  }
+  const parsed = parseReservoirUpdatedDate(raw || iso);
   if (!parsed) return 'Updated date unavailable';
   return `Updated: ${parsed.toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' })}`;
 }
@@ -5307,5 +5318,110 @@ setupDroughtTabs();
   }
   requestAnimationFrame(animate);
 })();
-</script></body>
+</script>
+<script id="nebraska-teacup-refresh-current">
+(function(){
+  const STATIC_NEBRASKA = {
+    "Lake McConaughy": { currentDate:"2026-04-08", currentElevation:3231.1, currentStorage:898100, teacupFill:51.5, lastUpdatedText:"Wednesday, April 8, 2026 (CNPPID)" },
+    "Lake Maloney": { currentDate:"2026-04-08", currentElevation:3003.74, currentStorage:15735, teacupFill:39.2, lastUpdatedText:"Apr 8 3:33 p.m. (NPPD)" },
+    "Sutherland Reservoir": { currentDate:"2026-04-08", currentElevation:3049.36, currentStorage:48274, teacupFill:52.2, lastUpdatedText:"Apr 8 3:33 p.m. (NPPD)" },
+    "Jeffrey Reservoir": { currentDate:"2026-04-08", currentElevation:2758.2, currentStorage:7083, teacupFill:76.4, lastUpdatedText:"Wednesday, April 8, 2026 (CNPPID)" },
+    "Johnson Lake": { currentDate:"2026-04-08", currentElevation:2616.2, currentStorage:37687, teacupFill:83.5, lastUpdatedText:"Wednesday, April 8, 2026 (CNPPID)" },
+    "Elwood Reservoir": { currentDate:"2026-04-08", currentElevation:2585.8, currentStorage:5063, teacupFill:10.8, lastUpdatedText:"Wednesday, April 8, 2026 (CNPPID)" }
+  };
+  const NPPD_CAPACITY = { "Lake Maloney": 40184, "Sutherland Reservoir": 92452 };
+  function pct(storage, name){
+    const cap = NPPD_CAPACITY[name];
+    return (cap && Number.isFinite(storage)) ? Math.max(0, Math.min(100, storage / cap * 100)) : null;
+  }
+  function plain(raw){
+    return String(raw || "").replace(/<[^>]*>/g, " ").replace(/\u00a0/g, " ").replace(/\s+/g, " ").trim();
+  }
+  function applyNebraska(updateMap){
+    if (!window.reservoirData) return;
+    window.liveReservoirs = window.liveReservoirs || {};
+    Object.entries(updateMap).forEach(([name, vals]) => {
+      if (!window.reservoirData[name] || !vals) return;
+      const merged = Object.assign({}, window.reservoirData[name], window.liveReservoirs[name] || {}, vals);
+      window.liveReservoirs[name] = merged;
+      Object.assign(window.reservoirData[name], merged);
+    });
+    if (typeof renderTeacups === "function") renderTeacups();
+    if (typeof renderStorageBreakdown === "function") renderStorageBreakdown();
+    if (typeof updateStorageBreakdownTimestamp === "function") updateStorageBreakdownTimestamp();
+  }
+  function parseCnppid(raw){
+    const text = plain(raw);
+    const dateMatch = text.match(/Readings for ([A-Za-z]+,\s+[A-Za-z]+\s+\d{1,2},\s+\d{4})/i);
+    const readingDate = dateMatch ? dateMatch[1] : null;
+    const out = {};
+    const mc = text.match(/Lake McConaughy\s+([\d,]+\.\d+)\s*=\s*([\d,]+)ac-ft\s*\(([\d.]+)% capacity\)/i);
+    if (mc) out["Lake McConaughy"] = {
+      currentDate: "2026-04-08",
+      currentElevation: Number(mc[1].replace(/,/g, "")),
+      currentStorage: Number(mc[2].replace(/,/g, "")),
+      teacupFill: Number(mc[3]),
+      lastUpdatedText: `${readingDate || 'Current'} (CNPPID)`
+    };
+    [["Jeffrey Reservoir", /Jeffrey Lake\s+([\d,]+\.\d+)/i], ["Johnson Lake", /Johnson Lake\s+([\d,]+\.\d+)/i], ["Elwood Reservoir", /Elwood Reservoir\s+([\d,]+\.\d+)/i]].forEach(([name, rx]) => {
+      const m = text.match(rx);
+      if (m) out[name] = {
+        currentDate: "2026-04-08",
+        currentElevation: Number(m[1].replace(/,/g, "")),
+        lastUpdatedText: `${readingDate || 'Current'} (CNPPID)`
+      };
+    });
+    return out;
+  }
+  function parseNppd(raw){
+    const text = plain(raw);
+    const tm = text.match(/Today\s+([A-Za-z]{3}\s+\d+\s+\d+:\d+\s*[ap]\.m\.)/i);
+    const stamp = tm ? `${tm[1]} (NPPD)` : "Current (NPPD)";
+    function grab(name){
+      const idx = text.indexOf(name);
+      if (idx === -1) return null;
+      const chunk = text.slice(idx, idx + 220);
+      const elev = chunk.match(/([\d,]+\.\d+)\s*ft\./i);
+      const vol = chunk.match(/Vol=([\d,]+)\s*a-f/i);
+      if (!elev) return null;
+      const storage = vol ? Number(vol[1].replace(/,/g, "")) : null;
+      return {
+        currentDate: "2026-04-08",
+        currentElevation: Number(elev[1].replace(/,/g, "")),
+        currentStorage: storage,
+        teacupFill: pct(storage, name),
+        lastUpdatedText: stamp
+      };
+    }
+    return {
+      "Sutherland Reservoir": grab("Sutherland Reservoir"),
+      "Lake Maloney": grab("Lake Maloney")
+    };
+  }
+  async function getText(url){
+    const res = await fetch(url, {cache:"no-store"});
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    return await res.text();
+  }
+  async function refreshNow(){
+    applyNebraska(STATIC_NEBRASKA);
+    try{
+      const [cnppidRaw, nppdRaw] = await Promise.all([
+        getText("https://cnppid.com/lake-river-data"),
+        getText("https://v1.nppd.com/About_Us/Energy_Facilities/facilities/water_data2.aspx")
+      ]);
+      applyNebraska(Object.assign({}, parseCnppid(cnppidRaw), parseNppd(nppdRaw)));
+    }catch(err){
+      console.warn("Nebraska reservoir refresh fell back to embedded current values.", err);
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", refreshNow, {once:true});
+  } else {
+    refreshNow();
+  }
+})();
+</script>
+
+</body>
 </html>
